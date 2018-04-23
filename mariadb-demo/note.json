@@ -51,7 +51,7 @@
       "progressUpdateIntervalMs": 500
     }
   ],
-  "name": "/mariadb/mariadb-demo",
+  "name": "mariadb/mariadb-demo",
   "id": "mariadb-demo",
   "angularObjects": {
     "2DD7AK917:shared_process": [],

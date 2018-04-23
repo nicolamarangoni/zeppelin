@@ -1,2 +1,0 @@
-# zeppelin
-Zeppelin notes
