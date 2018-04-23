@@ -2,18 +2,18 @@
   "paragraphs": [
     {
       "title": "Clean environment",
-      "text": "%jdbc\nUSE demo_json;\n\nDROP TABLE IF EXISTS demo_json.products;",
+      "text": "USE demo_json;\n\nDROP TABLE IF EXISTS demo_json.products;",
       "user": "anonymous",
-      "dateUpdated": "Apr 23, 2018 2:21:29 PM",
+      "dateUpdated": "Apr 23, 2018 2:31:01 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
         "results": {},
         "editorSetting": {
-          "language": "text",
+          "language": "sql",
           "editOnDblClick": false
         },
-        "editorMode": "ace/mode/text",
+        "editorMode": "ace/mode/sql",
         "tableHide": false,
         "title": true,
         "editorHide": false
@@ -22,33 +22,21 @@
         "params": {},
         "forms": {}
       },
-      "results": {
-        "code": "SUCCESS",
-        "msg": [
-          {
-            "type": "TEXT",
-            "data": "Query executed successfully. Affected rows : 0"
-          },
-          {
-            "type": "TEXT",
-            "data": "Query executed successfully. Affected rows : 0"
-          }
-        ]
-      },
       "apps": [],
       "jobName": "paragraph_1524222126420_1081145598",
       "id": "20180420-130206_406331286",
       "dateCreated": "Apr 20, 2018 1:02:06 PM",
-      "dateStarted": "Apr 23, 2018 2:21:29 PM",
-      "dateFinished": "Apr 23, 2018 2:21:31 PM",
+      "dateStarted": "Apr 23, 2018 2:31:01 PM",
+      "dateFinished": "Apr 23, 2018 2:31:03 PM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
       "title": "Prepare table",
-      "text": "%jdbc\nUSE demo_json;\n\n-- Example #01: definition\nCREATE TABLE IF NOT EXISTS demo_json.products (\n    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,\n    type VARCHAR(1) NOT NULL,\n    name VARCHAR(40) NOT NULL,\n    format VARCHAR(20) NOT NULL,\n    price FLOAT(5, 2) NOT NULL,\n    attr JSON NOT NULL,\n    CONSTRAINT attr_valid CHECK (JSON_VALID(attr))\n);\n\nSELECT COLUMN_NAME, DATA_TYPE\n  FROM information_schema.`COLUMNS`\n WHERE TABLE_SCHEMA \u003d \u0027demo_json\u0027\n   AND TABLE_NAME \u003d \u0027products\u0027;\n\nTRUNCATE TABLE products;",
+      "text": "USE demo_json;\n\n-- Example #01: definition\nCREATE TABLE IF NOT EXISTS demo_json.products (\n    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,\n    type VARCHAR(1) NOT NULL,\n    name VARCHAR(40) NOT NULL,\n    format VARCHAR(20) NOT NULL,\n    price FLOAT(5, 2) NOT NULL,\n    attr JSON NOT NULL,\n    CONSTRAINT attr_valid CHECK (JSON_VALID(attr))\n);\n\nSELECT COLUMN_NAME, DATA_TYPE\n  FROM information_schema.`COLUMNS`\n WHERE TABLE_SCHEMA \u003d \u0027demo_json\u0027\n   AND TABLE_NAME \u003d \u0027products\u0027;\n\nTRUNCATE TABLE products;",
       "user": "anonymous",
-      "dateUpdated": "Apr 23, 2018 2:22:01 PM",
+      "dateUpdated": "Apr 23, 2018 2:31:24 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -89,16 +77,16 @@
       "jobName": "paragraph_1524222170494_1915494108",
       "id": "20180420-130250_501092459",
       "dateCreated": "Apr 20, 2018 1:02:50 PM",
-      "dateStarted": "Apr 23, 2018 2:22:01 PM",
-      "dateFinished": "Apr 23, 2018 2:22:01 PM",
+      "dateStarted": "Apr 23, 2018 2:31:24 PM",
+      "dateFinished": "Apr 23, 2018 2:31:24 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
     {
       "title": "Populate table",
-      "text": "%jdbc\nUSE demo_json;\n\n-- Example #02: create\nINSERT INTO products (type, name, format, price, attr) VALUES \n     (\u0027M\u0027, \u0027Aliens\u0027, \u0027Blu-ray\u0027, 13.99,\u0027{\"video\": {\"resolution\": \"1080p\", \"aspectRatio\": \"1.85:1\"}, \"cuts\": \n     [{\"name\": \"Theatrical\", \"runtime\": 138}, {\"name\": \"Special Edition\", \"runtime\": 155}], \"audio\":\n     [\"DTS HD\", \"Dolby Surround\"]}\u0027);\n\nINSERT INTO products (type, name, format, price, attr) VALUES \n     (\u0027B\u0027, \u0027Foundation\u0027, \u0027Paperback\u0027, 7.99, \u0027{\"author\": \"Isaac Asimov\", \"page_count\": 296}\u0027);\n\nSELECT * FROM products;",
+      "text": "USE demo_json;\n\n-- Example #02: create\nINSERT INTO products (type, name, format, price, attr) VALUES \n     (\u0027M\u0027, \u0027Aliens\u0027, \u0027Blu-ray\u0027, 13.99,\u0027{\"video\": {\"resolution\": \"1080p\", \"aspectRatio\": \"1.85:1\"}, \"cuts\": \n     [{\"name\": \"Theatrical\", \"runtime\": 138}, {\"name\": \"Special Edition\", \"runtime\": 155}], \"audio\":\n     [\"DTS HD\", \"Dolby Surround\"]}\u0027);\n\nINSERT INTO products (type, name, format, price, attr) VALUES \n     (\u0027B\u0027, \u0027Foundation\u0027, \u0027Paperback\u0027, 7.99, \u0027{\"author\": \"Isaac Asimov\", \"page_count\": 296}\u0027);\n\nSELECT * FROM products;",
       "user": "anonymous",
-      "dateUpdated": "Apr 23, 2018 2:22:12 PM",
+      "dateUpdated": "Apr 23, 2018 2:31:13 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -123,27 +111,6 @@
         "params": {},
         "forms": {}
       },
-      "results": {
-        "code": "SUCCESS",
-        "msg": [
-          {
-            "type": "TEXT",
-            "data": "Query executed successfully. Affected rows : 0"
-          },
-          {
-            "type": "TEXT",
-            "data": "Query executed successfully. Affected rows : 1"
-          },
-          {
-            "type": "TEXT",
-            "data": "Query executed successfully. Affected rows : 1"
-          },
-          {
-            "type": "TABLE",
-            "data": "id\ttype\tname\tformat\tprice\tattr\n4\tM\tAliens\tBlu-ray\t13.99\t{\"video\": {\"resolution\": \"1080p\", \"aspectRatio\": \"1.85:1\"}, \"cuts\":       [{\"name\": \"Theatrical\", \"runtime\": 138}, {\"name\": \"Special Edition\", \"runtime\": 155}], \"audio\":      [\"DTS HD\", \"Dolby Surround\"]}\n7\tB\tFoundation\tPaperback\t7.99\t{\"author\": \"Isaac Asimov\", \"page_count\": 296}\n"
-          }
-        ]
-      },
       "apps": [],
       "jobName": "paragraph_1524222563956_-1562852132",
       "id": "20180420-130923_1958235899",
@@ -151,12 +118,13 @@
       "dateStarted": "Apr 23, 2018 2:22:12 PM",
       "dateFinished": "Apr 23, 2018 2:22:12 PM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
-      "text": "%jdbc\nUSE demo_json;\n\n-- Example #03: read field\nSELECT type, name, format, price, \n    JSON_VALUE(attr, \u0027$.video.aspectRatio\u0027) AS aspect_ratio\nFROM products;\n\n-- Example #04: contains field\nSELECT name, format, price,\n    JSON_VALUE(attr, \u0027$.video.aspectRatio\u0027) AS aspect_ratio\nFROM products\nWHERE\n    JSON_CONTAINS_PATH(attr, \u0027one\u0027, \u0027$.video.resolution\u0027) \u003d 1;\n\n-- Example #05: contains value\nSELECT id, name, format, price\nFROM products\nWHERE type \u003d \u0027M\u0027 AND\n    JSON_CONTAINS(attr, \u0027\\\"DTS HD\\\"\u0027, \u0027$.audio\u0027) \u003d 1;\n\n-- Example #06: read array\nSELECT name, format, price, \n    JSON_QUERY(attr, \u0027$.audio\u0027) AS audio\nFROM products;\n\n-- Example #07: read array element\nSELECT name, format, price, \n    JSON_VALUE(attr, \u0027$.audio[0]\u0027) AS default_audio\nFROM products;\n\n-- Example #08: read object\nSELECT name, format, price, \n    JSON_QUERY(attr, \u0027$.video\u0027) AS video\nFROM products;\n\n-- Example #09: read objects\nSELECT name, \n    JSON_QUERY(attr, \u0027$.audio\u0027) AS audio,\n    JSON_QUERY(attr, \u0027$.video\u0027) AS video\nFROM products;\n\n-- Example #10: field equals\nSELECT id, name, format, price\nFROM products\nWHERE\n\tJSON_VALUE(attr, \u0027$.video.resolution\u0027) \u003d \u00271080p\u0027;\n",
+      "text": "USE demo_json;\n\n-- Example #03: read field\nSELECT type, name, format, price, \n    JSON_VALUE(attr, \u0027$.video.aspectRatio\u0027) AS aspect_ratio\nFROM products;\n\n-- Example #04: contains field\nSELECT name, format, price,\n    JSON_VALUE(attr, \u0027$.video.aspectRatio\u0027) AS aspect_ratio\nFROM products\nWHERE\n    JSON_CONTAINS_PATH(attr, \u0027one\u0027, \u0027$.video.resolution\u0027) \u003d 1;\n\n-- Example #05: contains value\nSELECT id, name, format, price\nFROM products\nWHERE type \u003d \u0027M\u0027 AND\n    JSON_CONTAINS(attr, \u0027\\\"DTS HD\\\"\u0027, \u0027$.audio\u0027) \u003d 1;\n\n-- Example #06: read array\nSELECT name, format, price, \n    JSON_QUERY(attr, \u0027$.audio\u0027) AS audio\nFROM products;\n\n-- Example #07: read array element\nSELECT name, format, price, \n    JSON_VALUE(attr, \u0027$.audio[0]\u0027) AS default_audio\nFROM products;\n\n-- Example #08: read object\nSELECT name, format, price, \n    JSON_QUERY(attr, \u0027$.video\u0027) AS video\nFROM products;\n\n-- Example #09: read objects\nSELECT name, \n    JSON_QUERY(attr, \u0027$.audio\u0027) AS audio,\n    JSON_QUERY(attr, \u0027$.video\u0027) AS video\nFROM products;\n\n-- Example #10: field equals\nSELECT id, name, format, price\nFROM products\nWHERE\n\tJSON_VALUE(attr, \u0027$.video.resolution\u0027) \u003d \u00271080p\u0027;\n",
       "user": "anonymous",
-      "dateUpdated": "Apr 23, 2018 2:22:19 PM",
+      "dateUpdated": "Apr 23, 2018 2:31:19 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -171,47 +139,6 @@
         "params": {},
         "forms": {}
       },
-      "results": {
-        "code": "SUCCESS",
-        "msg": [
-          {
-            "type": "TEXT",
-            "data": "Query executed successfully. Affected rows : 0"
-          },
-          {
-            "type": "TABLE",
-            "data": "type\tname\tformat\tprice\taspect_ratio\nM\tAliens\tBlu-ray\t13.99\t1.85:1\nB\tFoundation\tPaperback\t7.99\tnull\n"
-          },
-          {
-            "type": "TABLE",
-            "data": "name\tformat\tprice\taspect_ratio\nAliens\tBlu-ray\t13.99\t1.85:1\n"
-          },
-          {
-            "type": "TABLE",
-            "data": "id\tname\tformat\tprice\n4\tAliens\tBlu-ray\t13.99\n"
-          },
-          {
-            "type": "TABLE",
-            "data": "name\tformat\tprice\taudio\nAliens\tBlu-ray\t13.99\t[\"DTS HD\", \"Dolby Surround\"]\nFoundation\tPaperback\t7.99\tnull\n"
-          },
-          {
-            "type": "TABLE",
-            "data": "name\tformat\tprice\tdefault_audio\nAliens\tBlu-ray\t13.99\tDTS HD\nFoundation\tPaperback\t7.99\tnull\n"
-          },
-          {
-            "type": "TABLE",
-            "data": "name\tformat\tprice\tvideo\nAliens\tBlu-ray\t13.99\t{\"resolution\": \"1080p\", \"aspectRatio\": \"1.85:1\"}\nFoundation\tPaperback\t7.99\tnull\n"
-          },
-          {
-            "type": "TABLE",
-            "data": "name\taudio\tvideo\nAliens\t[\"DTS HD\", \"Dolby Surround\"]\t{\"resolution\": \"1080p\", \"aspectRatio\": \"1.85:1\"}\nFoundation\tnull\tnull\n"
-          },
-          {
-            "type": "TABLE",
-            "data": "id\tname\tformat\tprice\n4\tAliens\tBlu-ray\t13.99\n"
-          }
-        ]
-      },
       "apps": [],
       "jobName": "paragraph_1524222826157_1297926674",
       "id": "20180420-131346_540280752",
@@ -219,6 +146,7 @@
       "dateStarted": "Apr 23, 2018 2:22:19 PM",
       "dateFinished": "Apr 23, 2018 2:22:19 PM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
@@ -237,7 +165,7 @@
       "progressUpdateIntervalMs": 500
     }
   ],
-  "name": "mariadb/mariadb-demo-json",
+  "name": "MariaDB/MariaDB Demo JSON",
   "id": "mariadb-demo-json",
   "angularObjects": {
     "2DDSP4NX4:shared_process": [],
