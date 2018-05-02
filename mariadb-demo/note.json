@@ -1,9 +1,9 @@
 {
   "paragraphs": [
     {
-      "text": "SELECT 1;",
+      "text": "SELECT 0;",
       "user": "anonymous",
-      "dateUpdated": "Apr 23, 2018 10:35:52 AM",
+      "dateUpdated": "May 2, 2018 9:58:22 AM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -23,7 +23,7 @@
         "msg": [
           {
             "type": "TABLE",
-            "data": "1\n1\n"
+            "data": "0\n0\n"
           }
         ]
       },
@@ -31,8 +31,8 @@
       "jobName": "paragraph_1524472415359_-1686442313",
       "id": "20180423-103335_540625361",
       "dateCreated": "Apr 23, 2018 10:33:35 AM",
-      "dateStarted": "Apr 23, 2018 10:35:52 AM",
-      "dateFinished": "Apr 23, 2018 10:35:55 AM",
+      "dateStarted": "May 2, 2018 9:58:23 AM",
+      "dateFinished": "May 2, 2018 9:58:23 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -54,25 +54,25 @@
   "name": "MariaDB/MariaDB Demo",
   "id": "mariadb-demo",
   "angularObjects": {
-    "2DD7AK917:shared_process": [],
-    "2DBCZRDBH:shared_process": [],
-    "2DDD4CXJZ:shared_process": [],
-    "2DE6ZT6TD:shared_process": [],
-    "2DEFUKKWE:shared_process": [],
-    "2DC82VRC7:shared_process": [],
-    "2DDA3STSP:shared_process": [],
-    "2DBJ9ZAKR:shared_process": [],
-    "2DEN66AWA:shared_process": [],
-    "2DBNJ7Q5N:shared_process": [],
-    "2DE8DQT58:shared_process": [],
-    "2DBMFRNCX:shared_process": [],
-    "2DDSR7CP4:shared_process": [],
-    "2DDPK1FHJ:shared_process": [],
-    "2DBFYQ92P:shared_process": [],
-    "2DBD52VXV:shared_process": [],
-    "2DER5UFUM:shared_process": [],
-    "2DDYVCV9S:shared_process": [],
-    "2DBDEXGZQ:shared_process": []
+    "2DBSKP14Y:shared_process": [],
+    "2DBTCA5PQ:shared_process": [],
+    "2DC4X1J58:shared_process": [],
+    "2DDDJQE4N:shared_process": [],
+    "2DE9EN7WW:shared_process": [],
+    "2DEN2ZJHJ:shared_process": [],
+    "2DEJUM1FD:shared_process": [],
+    "2DCNY1SW7:shared_process": [],
+    "2DC3GTS33:shared_process": [],
+    "2DC6KQ1Z9:shared_process": [],
+    "2DBHUQHAG:shared_process": [],
+    "2DEUW8WZ1:shared_process": [],
+    "2DEFQTB1N:shared_process": [],
+    "2DED4T3Z6:shared_process": [],
+    "2DEJ324DN:shared_process": [],
+    "2DDE5GVA6:shared_process": [],
+    "2DD5QTGB5:shared_process": [],
+    "2DEKGKBMC:shared_process": [],
+    "2DFDEHN62:shared_process": []
   },
   "config": {},
   "info": {}
