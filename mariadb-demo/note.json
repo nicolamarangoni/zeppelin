@@ -1,9 +1,9 @@
 {
   "paragraphs": [
     {
-      "text": "SELECT 0;",
+      "text": "SELECT 1;",
       "user": "anonymous",
-      "dateUpdated": "May 2, 2018 9:58:22 AM",
+      "dateUpdated": "May 2, 2018 10:04:17 AM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -23,7 +23,7 @@
         "msg": [
           {
             "type": "TABLE",
-            "data": "0\n0\n"
+            "data": "1\n1\n"
           }
         ]
       },
@@ -31,8 +31,8 @@
       "jobName": "paragraph_1524472415359_-1686442313",
       "id": "20180423-103335_540625361",
       "dateCreated": "Apr 23, 2018 10:33:35 AM",
-      "dateStarted": "May 2, 2018 9:58:23 AM",
-      "dateFinished": "May 2, 2018 9:58:23 AM",
+      "dateStarted": "May 2, 2018 10:04:17 AM",
+      "dateFinished": "May 2, 2018 10:04:17 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
