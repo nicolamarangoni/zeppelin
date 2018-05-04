@@ -36,7 +36,7 @@
       "title": "Prepare table",
       "text": "USE demo_json;\n\n-- Example #01: definition\nCREATE TABLE IF NOT EXISTS demo_json.products (\n    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,\n    type VARCHAR(1) NOT NULL,\n    name VARCHAR(40) NOT NULL,\n    format VARCHAR(20) NOT NULL,\n    price FLOAT(5, 2) NOT NULL,\n    attr JSON NOT NULL,\n    CONSTRAINT attr_valid CHECK (JSON_VALID(attr))\n);\n\nSELECT COLUMN_NAME, DATA_TYPE\n  FROM information_schema.`COLUMNS`\n WHERE TABLE_SCHEMA \u003d \u0027demo_json\u0027\n   AND TABLE_NAME \u003d \u0027products\u0027;\n\nTRUNCATE TABLE products;",
       "user": "anonymous",
-      "dateUpdated": "Apr 23, 2018 2:31:24 PM",
+      "dateUpdated": "May 4, 2018 10:50:20 AM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -53,23 +53,11 @@
         "forms": {}
       },
       "results": {
-        "code": "SUCCESS",
+        "code": "ERROR",
         "msg": [
           {
             "type": "TEXT",
-            "data": "Query executed successfully. Affected rows : 0"
-          },
-          {
-            "type": "TEXT",
-            "data": "Query executed successfully. Affected rows : 0"
-          },
-          {
-            "type": "TABLE",
-            "data": "COLUMN_NAME\tDATA_TYPE\nid\tint\ntype\tvarchar\nname\tvarchar\nformat\tvarchar\nprice\tfloat\nattr\tlongtext\n"
-          },
-          {
-            "type": "TEXT",
-            "data": "Query executed successfully. Affected rows : 0"
+            "data": "java.sql.SQLNonTransientConnectionException: Could not connect to address\u003d(host\u003dlocalhost)(port\u003d3306)(type\u003dmaster) : Connection refused (Connection refused)\n\tat org.mariadb.jdbc.internal.util.exceptions.ExceptionMapper.get(ExceptionMapper.java:175)\n\tat org.mariadb.jdbc.internal.util.exceptions.ExceptionMapper.connException(ExceptionMapper.java:83)\n\tat org.mariadb.jdbc.internal.protocol.AbstractConnectProtocol.connectWithoutProxy(AbstractConnectProtocol.java:1097)\n\tat org.mariadb.jdbc.internal.util.Utils.retrieveProxy(Utils.java:494)\n\tat org.mariadb.jdbc.MariaDbConnection.newConnection(MariaDbConnection.java:150)\n\tat org.mariadb.jdbc.Driver.connect(Driver.java:86)\n\tat java.sql.DriverManager.getConnection(DriverManager.java:664)\n\tat java.sql.DriverManager.getConnection(DriverManager.java:208)\n\tat org.apache.commons.dbcp2.DriverManagerConnectionFactory.createConnection(DriverManagerConnectionFactory.java:79)\n\tat org.apache.commons.dbcp2.PoolableConnectionFactory.makeObject(PoolableConnectionFactory.java:205)\n\tat org.apache.commons.pool2.impl.GenericObjectPool.create(GenericObjectPool.java:861)\n\tat org.apache.commons.pool2.impl.GenericObjectPool.borrowObject(GenericObjectPool.java:435)\n\tat org.apache.commons.pool2.impl.GenericObjectPool.borrowObject(GenericObjectPool.java:363)\n\tat org.apache.commons.dbcp2.PoolingDriver.connect(PoolingDriver.java:129)\n\tat java.sql.DriverManager.getConnection(DriverManager.java:664)\n\tat java.sql.DriverManager.getConnection(DriverManager.java:270)\n\tat org.apache.zeppelin.jdbc.JDBCInterpreter.getConnectionFromPool(JDBCInterpreter.java:360)\n\tat org.apache.zeppelin.jdbc.JDBCInterpreter.getConnection(JDBCInterpreter.java:378)\n\tat org.apache.zeppelin.jdbc.JDBCInterpreter.executeSql(JDBCInterpreter.java:570)\n\tat org.apache.zeppelin.jdbc.JDBCInterpreter.interpret(JDBCInterpreter.java:709)\n\tat org.apache.zeppelin.interpreter.LazyOpenInterpreter.interpret(LazyOpenInterpreter.java:97)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:498)\n\tat org.apache.zeppelin.scheduler.Job.run(Job.java:175)\n\tat org.apache.zeppelin.scheduler.ParallelScheduler$JobRunner.run(ParallelScheduler.java:162)\n\tat java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)\n\tat java.util.concurrent.FutureTask.run(FutureTask.java:266)\n\tat java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)\n\tat java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)\n\tat java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)\n\tat java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)\n\tat java.lang.Thread.run(Thread.java:748)\nCaused by: java.net.ConnectException: Connection refused (Connection refused)\n\tat java.net.PlainSocketImpl.socketConnect(Native Method)\n\tat java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:350)\n\tat java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)\n\tat java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)\n\tat java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)\n\tat java.net.Socket.connect(Socket.java:589)\n\tat org.mariadb.jdbc.internal.protocol.AbstractConnectProtocol.connect(AbstractConnectProtocol.java:448)\n\tat org.mariadb.jdbc.internal.protocol.AbstractConnectProtocol.connectWithoutProxy(AbstractConnectProtocol.java:1089)\n\t... 28 more\n"
           }
         ]
       },
@@ -77,16 +65,16 @@
       "jobName": "paragraph_1524222170494_1915494108",
       "id": "20180420-130250_501092459",
       "dateCreated": "Apr 20, 2018 1:02:50 PM",
-      "dateStarted": "Apr 23, 2018 2:31:24 PM",
-      "dateFinished": "Apr 23, 2018 2:31:24 PM",
-      "status": "FINISHED",
+      "dateStarted": "May 4, 2018 10:50:20 AM",
+      "dateFinished": "May 4, 2018 10:50:25 AM",
+      "status": "ERROR",
       "progressUpdateIntervalMs": 500
     },
     {
       "title": "Populate table",
       "text": "USE demo_json;\n\n-- Example #02: create\nINSERT INTO products (type, name, format, price, attr) VALUES \n     (\u0027M\u0027, \u0027Aliens\u0027, \u0027Blu-ray\u0027, 13.99,\u0027{\"video\": {\"resolution\": \"1080p\", \"aspectRatio\": \"1.85:1\"}, \"cuts\": \n     [{\"name\": \"Theatrical\", \"runtime\": 138}, {\"name\": \"Special Edition\", \"runtime\": 155}], \"audio\":\n     [\"DTS HD\", \"Dolby Surround\"]}\u0027);\n\nINSERT INTO products (type, name, format, price, attr) VALUES \n     (\u0027B\u0027, \u0027Foundation\u0027, \u0027Paperback\u0027, 7.99, \u0027{\"author\": \"Isaac Asimov\", \"page_count\": 296}\u0027);\n\nSELECT * FROM products;",
       "user": "anonymous",
-      "dateUpdated": "Apr 23, 2018 2:31:13 PM",
+      "dateUpdated": "May 4, 2018 10:50:31 AM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -111,14 +99,22 @@
         "params": {},
         "forms": {}
       },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "java.sql.SQLNonTransientConnectionException: Could not connect to address\u003d(host\u003dlocalhost)(port\u003d3306)(type\u003dmaster) : Connection refused (Connection refused)\n\tat org.mariadb.jdbc.internal.util.exceptions.ExceptionMapper.get(ExceptionMapper.java:175)\n\tat org.mariadb.jdbc.internal.util.exceptions.ExceptionMapper.connException(ExceptionMapper.java:83)\n\tat org.mariadb.jdbc.internal.protocol.AbstractConnectProtocol.connectWithoutProxy(AbstractConnectProtocol.java:1097)\n\tat org.mariadb.jdbc.internal.util.Utils.retrieveProxy(Utils.java:494)\n\tat org.mariadb.jdbc.MariaDbConnection.newConnection(MariaDbConnection.java:150)\n\tat org.mariadb.jdbc.Driver.connect(Driver.java:86)\n\tat java.sql.DriverManager.getConnection(DriverManager.java:664)\n\tat java.sql.DriverManager.getConnection(DriverManager.java:208)\n\tat org.apache.commons.dbcp2.DriverManagerConnectionFactory.createConnection(DriverManagerConnectionFactory.java:79)\n\tat org.apache.commons.dbcp2.PoolableConnectionFactory.makeObject(PoolableConnectionFactory.java:205)\n\tat org.apache.commons.pool2.impl.GenericObjectPool.create(GenericObjectPool.java:861)\n\tat org.apache.commons.pool2.impl.GenericObjectPool.borrowObject(GenericObjectPool.java:435)\n\tat org.apache.commons.pool2.impl.GenericObjectPool.borrowObject(GenericObjectPool.java:363)\n\tat org.apache.commons.dbcp2.PoolingDriver.connect(PoolingDriver.java:129)\n\tat java.sql.DriverManager.getConnection(DriverManager.java:664)\n\tat java.sql.DriverManager.getConnection(DriverManager.java:270)\n\tat org.apache.zeppelin.jdbc.JDBCInterpreter.getConnectionFromPool(JDBCInterpreter.java:360)\n\tat org.apache.zeppelin.jdbc.JDBCInterpreter.getConnection(JDBCInterpreter.java:378)\n\tat org.apache.zeppelin.jdbc.JDBCInterpreter.executeSql(JDBCInterpreter.java:570)\n\tat org.apache.zeppelin.jdbc.JDBCInterpreter.interpret(JDBCInterpreter.java:709)\n\tat org.apache.zeppelin.interpreter.LazyOpenInterpreter.interpret(LazyOpenInterpreter.java:97)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:498)\n\tat org.apache.zeppelin.scheduler.Job.run(Job.java:175)\n\tat org.apache.zeppelin.scheduler.ParallelScheduler$JobRunner.run(ParallelScheduler.java:162)\n\tat java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)\n\tat java.util.concurrent.FutureTask.run(FutureTask.java:266)\n\tat java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)\n\tat java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)\n\tat java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)\n\tat java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)\n\tat java.lang.Thread.run(Thread.java:748)\nCaused by: java.net.ConnectException: Connection refused (Connection refused)\n\tat java.net.PlainSocketImpl.socketConnect(Native Method)\n\tat java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:350)\n\tat java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)\n\tat java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)\n\tat java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)\n\tat java.net.Socket.connect(Socket.java:589)\n\tat org.mariadb.jdbc.internal.protocol.AbstractConnectProtocol.connect(AbstractConnectProtocol.java:448)\n\tat org.mariadb.jdbc.internal.protocol.AbstractConnectProtocol.connectWithoutProxy(AbstractConnectProtocol.java:1089)\n\t... 28 more\n"
+          }
+        ]
+      },
       "apps": [],
       "jobName": "paragraph_1524222563956_-1562852132",
       "id": "20180420-130923_1958235899",
       "dateCreated": "Apr 20, 2018 1:09:23 PM",
-      "dateStarted": "Apr 23, 2018 2:22:12 PM",
-      "dateFinished": "Apr 23, 2018 2:22:12 PM",
-      "status": "FINISHED",
-      "errorMessage": "",
+      "dateStarted": "May 4, 2018 10:50:31 AM",
+      "dateFinished": "May 4, 2018 10:50:31 AM",
+      "status": "ERROR",
       "progressUpdateIntervalMs": 500
     },
     {
@@ -168,25 +164,26 @@
   "name": "MariaDB/MariaDB Demo JSON",
   "id": "mariadb-demo-json",
   "angularObjects": {
-    "2DDSP4NX4:shared_process": [],
-    "2DBZW3VRH:shared_process": [],
-    "2DBUJM4TP:shared_process": [],
-    "2DCX3956H:shared_process": [],
-    "2DE3DQ2QJ:shared_process": [],
-    "2DACE84XJ:shared_process": [],
-    "2DADVFJ8V:shared_process": [],
-    "2DCF1HTHJ:shared_process": [],
-    "2DA9CY7G9:shared_process": [],
-    "2DDU2FY5C:shared_process": [],
-    "2DD3K8Z24:shared_process": [],
-    "2DCYHC1YV:shared_process": [],
-    "2DDXKNGT2:shared_process": [],
-    "2DB6S86TP:shared_process": [],
-    "2DCNZ5SEW:shared_process": [],
-    "2DBF5NTF2:shared_process": [],
-    "2DBYCMS19:shared_process": [],
-    "2DDNNJ9ZK:shared_process": [],
-    "2DCE2J8KA:shared_process": []
+    "2DF5XSBEK:shared_process": [],
+    "2DBP143TN:shared_process": [],
+    "2DEZ27NAC:shared_process": [],
+    "2DBQQX86C:shared_process": [],
+    "2DDRNMWSF:shared_process": [],
+    "2DE8XZDJR:shared_process": [],
+    "2DFGUW2WZ:shared_process": [],
+    "2DD5G9W9H:shared_process": [],
+    "2DBQDTZMX:shared_process": [],
+    "2DEV43AK7:shared_process": [],
+    "MARIADB:shared_process": [],
+    "2DENPS1KA:shared_process": [],
+    "2DCUP2N3Q:shared_process": [],
+    "2DEFHPYEZ:shared_process": [],
+    "2DDWMCEDN:shared_process": [],
+    "2DDR4YXMC:shared_process": [],
+    "2DF8DRAGB:shared_process": [],
+    "2DF6RSZ8V:shared_process": [],
+    "2DD1J6723:shared_process": [],
+    "2DEAEGENF:shared_process": []
   },
   "config": {
     "looknfeel": "default",
