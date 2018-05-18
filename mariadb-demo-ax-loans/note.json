@@ -1,0 +1,471 @@
+{
+  "paragraphs": [
+    {
+      "text": "%md\n# Loans Demo",
+      "user": "anonymous",
+      "dateUpdated": "May 18, 2018 9:03:44 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/sql",
+        "editorHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch1\u003eLoans Demo\u003c/h1\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1526648605659_1697800655",
+      "id": "20180518-090325_121597031",
+      "dateCreated": "May 18, 2018 9:03:25 AM",
+      "dateStarted": "May 18, 2018 9:03:37 AM",
+      "dateFinished": "May 18, 2018 9:03:41 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n## Grade Mix By Year\nCalculates the percentage grade mix by year. \nThis demonstrates use of a window function to provide a total per row.\nNote the contact on d.year is a hack to make sqlpad to treat this like a string rather than a numberic for visualization",
+      "user": "anonymous",
+      "dateUpdated": "May 18, 2018 9:03:46 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003eGrade Mix By Year\u003c/h2\u003e\n\u003cp\u003eCalculates the percentage grade mix by year.\u003cbr/\u003eThis demonstrates use of a window function to provide a total per row.\u003cbr/\u003eNote the contact on d.year is a hack to make sqlpad to treat this like a string rather than a numberic for visualization\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1526644951965_-721337320",
+      "id": "20180518-080231_660652761",
+      "dateCreated": "May 18, 2018 8:02:31 AM",
+      "dateStarted": "May 18, 2018 9:03:46 AM",
+      "dateFinished": "May 18, 2018 9:03:46 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%mariadb(cs)\n\nuse demo_loans;\n\nselect concat(year, \u0027-\u0027) year, \ngrade,\n(total/year_total)*100 grade_pct\nfrom (\n    select year,\n    grade,\n    total,\n    sum(total) over (partition by year order by year rows between unbounded preceding and unbounded following) year_total\n    from (\n        select d.year, \n        l.grade,\n        count(*) total\n        from loanstats l \n        join time_d d on d.issue_d \u003d l.issue_d\n        group by 1,2\n    ) t\n) u\norder by 1,2;",
+      "user": "anonymous",
+      "dateUpdated": "May 18, 2018 9:58:57 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "text",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/text"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : 0"
+          },
+          {
+            "type": "TEXT",
+            "data": "java.sql.SQLException: (conn\u003d31) Internal error: fatal error in mysql_real_connect()(1045)(1045)\n\tat org.mariadb.jdbc.internal.util.exceptions.ExceptionMapper.get(ExceptionMapper.java:198)\n\tat org.mariadb.jdbc.internal.util.exceptions.ExceptionMapper.getException(ExceptionMapper.java:110)\n\tat org.mariadb.jdbc.MariaDbStatement.executeExceptionEpilogue(MariaDbStatement.java:228)\n\tat org.mariadb.jdbc.MariaDbStatement.executeInternal(MariaDbStatement.java:334)\n\tat org.mariadb.jdbc.MariaDbStatement.execute(MariaDbStatement.java:386)\n\tat org.apache.commons.dbcp2.DelegatingStatement.execute(DelegatingStatement.java:291)\n\tat org.apache.commons.dbcp2.DelegatingStatement.execute(DelegatingStatement.java:291)\n\tat org.apache.zeppelin.jdbc.JDBCInterpreter.executeSql(JDBCInterpreter.java:597)\n\tat org.apache.zeppelin.jdbc.JDBCInterpreter.interpret(JDBCInterpreter.java:709)\n\tat org.apache.zeppelin.interpreter.LazyOpenInterpreter.interpret(LazyOpenInterpreter.java:97)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:498)\n\tat org.apache.zeppelin.scheduler.Job.run(Job.java:175)\n\tat org.apache.zeppelin.scheduler.ParallelScheduler$JobRunner.run(ParallelScheduler.java:162)\n\tat java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)\n\tat java.util.concurrent.FutureTask.run(FutureTask.java:266)\n\tat java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)\n\tat java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)\n\tat java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)\n\tat java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)\n\tat java.lang.Thread.run(Thread.java:748)\nCaused by: java.sql.SQLException: Internal error: fatal error in mysql_real_connect()(1045)(1045)\nQuery is: \n\nselect concat(year, \u0027-\u0027) year, \ngrade,\n(total/year_total)*100 grade_pct\nfrom (\n    select year,\n    grade,\n    total,\n    sum(total) over (partition by year order by year rows between unbounded preceding and unbounded following) year_total\n    from (\n        select d.year, \n        l.grade,\n        count(*) total\n        from loanstats l \n        join time_d d on d.issue_d \u003d l.issue_d\n        group by 1,2\n    ) t\n) u\norder by 1,2\n\tat org.mariadb.jdbc.internal.util.LogQueryTool.exceptionWithQuery(LogQueryTool.java:119)\n\tat org.mariadb.jdbc.internal.protocol.AbstractQueryProtocol.executeQuery(AbstractQueryProtocol.java:199)\n\tat org.mariadb.jdbc.MariaDbStatement.executeInternal(MariaDbStatement.java:328)\n\t... 16 more\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1526648626655_1066443034",
+      "id": "20180518-090346_1921393231",
+      "dateCreated": "May 18, 2018 9:03:46 AM",
+      "dateStarted": "May 18, 2018 9:58:57 AM",
+      "dateFinished": "May 18, 2018 9:58:57 AM",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\n## Query total loan amount by year and grade.\nNote the contact on d.year is a hack to make sqlpad to treat this like a string rather than a numberic for visualization",
+      "user": "anonymous",
+      "dateUpdated": "May 18, 2018 10:00:43 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": false,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003eQuery total loan amount by year and grade.\u003c/h2\u003e\n\u003cp\u003eNote the contact on d.year is a hack to make sqlpad to treat this like a string rather than a numberic for visualization\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1526648679207_-2050515075",
+      "id": "20180518-090439_1468439304",
+      "dateCreated": "May 18, 2018 9:04:39 AM",
+      "dateStarted": "May 18, 2018 9:59:54 AM",
+      "dateFinished": "May 18, 2018 9:59:54 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%mariadb(cs)\n\nuse demo_loans;\n\nselect concat(d.year, \u0027-\u0027) year,\nl.grade, \nsum(l.loan_amnt) total_loans\nfrom loanstats l\njoin time_d d on d.issue_d \u003d l.issue_d\ngroup by d.year,l.grade\norder by d.year,l.grade;",
+      "user": "anonymous",
+      "dateUpdated": "May 18, 2018 9:59:49 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "text",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/text"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : 0"
+          },
+          {
+            "type": "TEXT",
+            "data": "java.sql.SQLException: (conn\u003d33) Internal error: fatal error in mysql_real_connect()(1045)(1045)\n\tat org.mariadb.jdbc.internal.util.exceptions.ExceptionMapper.get(ExceptionMapper.java:198)\n\tat org.mariadb.jdbc.internal.util.exceptions.ExceptionMapper.getException(ExceptionMapper.java:110)\n\tat org.mariadb.jdbc.MariaDbStatement.executeExceptionEpilogue(MariaDbStatement.java:228)\n\tat org.mariadb.jdbc.MariaDbStatement.executeInternal(MariaDbStatement.java:334)\n\tat org.mariadb.jdbc.MariaDbStatement.execute(MariaDbStatement.java:386)\n\tat org.apache.commons.dbcp2.DelegatingStatement.execute(DelegatingStatement.java:291)\n\tat org.apache.commons.dbcp2.DelegatingStatement.execute(DelegatingStatement.java:291)\n\tat org.apache.zeppelin.jdbc.JDBCInterpreter.executeSql(JDBCInterpreter.java:597)\n\tat org.apache.zeppelin.jdbc.JDBCInterpreter.interpret(JDBCInterpreter.java:709)\n\tat org.apache.zeppelin.interpreter.LazyOpenInterpreter.interpret(LazyOpenInterpreter.java:97)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:498)\n\tat org.apache.zeppelin.scheduler.Job.run(Job.java:175)\n\tat org.apache.zeppelin.scheduler.ParallelScheduler$JobRunner.run(ParallelScheduler.java:162)\n\tat java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)\n\tat java.util.concurrent.FutureTask.run(FutureTask.java:266)\n\tat java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)\n\tat java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)\n\tat java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)\n\tat java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)\n\tat java.lang.Thread.run(Thread.java:748)\nCaused by: java.sql.SQLException: Internal error: fatal error in mysql_real_connect()(1045)(1045)\nQuery is: \n\nselect concat(d.year, \u0027-\u0027) year,\nl.grade, \nsum(l.loan_amnt) total_loans\nfrom loanstats l\njoin time_d d on d.issue_d \u003d l.issue_d\ngroup by d.year,l.grade\norder by d.year,l.grade\n\tat org.mariadb.jdbc.internal.util.LogQueryTool.exceptionWithQuery(LogQueryTool.java:119)\n\tat org.mariadb.jdbc.internal.protocol.AbstractQueryProtocol.executeQuery(AbstractQueryProtocol.java:199)\n\tat org.mariadb.jdbc.MariaDbStatement.executeInternal(MariaDbStatement.java:328)\n\t... 16 more\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1526651962131_-1198621955",
+      "id": "20180518-095922_1235411363",
+      "dateCreated": "May 18, 2018 9:59:22 AM",
+      "dateStarted": "May 18, 2018 9:59:49 AM",
+      "dateFinished": "May 18, 2018 9:59:50 AM",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\n## Quarterly Summary\nQuery sum, average, and count of loan amounts by quarter since the start of 2014. \n\nQuery illustrates performance due to:\n- Small number of columns referenced compared to total table column count.\n- aggregations and filtering\n- cross engine join with time_d dimension table.",
+      "user": "anonymous",
+      "dateUpdated": "May 18, 2018 10:01:46 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003eQuarterly Summary\u003c/h2\u003e\n\u003cp\u003eQuery sum, average, and count of loan amounts by quarter since the start of 2014. \u003c/p\u003e\n\u003cp\u003eQuery illustrates performance due to:\u003cbr/\u003e- Small number of columns referenced compared to total table column count.\u003cbr/\u003e- aggregations and filtering\u003cbr/\u003e- cross engine join with time_d dimension table.\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1526651989828_-1702997115",
+      "id": "20180518-095949_617581466",
+      "dateCreated": "May 18, 2018 9:59:49 AM",
+      "dateStarted": "May 18, 2018 10:01:46 AM",
+      "dateFinished": "May 18, 2018 10:01:46 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%mariadb(cs)\n\nuse demo_loans;\n\nselect t.yrqtr, \nsum(l.loan_amnt) total_loan_amnt,\navg(l.loan_amnt) avg_loan_amnt,\ncount(*) count \nfrom loanstats l\njoin time_d t on l.issue_d \u003d t.issue_d\nwhere t.year \u003e\u003d 2014\ngroup by t.yrqtr \norder by t.yrqtr;\n",
+      "user": "anonymous",
+      "dateUpdated": "May 18, 2018 10:06:48 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "text",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/text"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : 0"
+          },
+          {
+            "type": "TEXT",
+            "data": "java.sql.SQLException: (conn\u003d35) Internal error: fatal error in mysql_real_connect()(1045)(1045)\n\tat org.mariadb.jdbc.internal.util.exceptions.ExceptionMapper.get(ExceptionMapper.java:198)\n\tat org.mariadb.jdbc.internal.util.exceptions.ExceptionMapper.getException(ExceptionMapper.java:110)\n\tat org.mariadb.jdbc.MariaDbStatement.executeExceptionEpilogue(MariaDbStatement.java:228)\n\tat org.mariadb.jdbc.MariaDbStatement.executeInternal(MariaDbStatement.java:334)\n\tat org.mariadb.jdbc.MariaDbStatement.execute(MariaDbStatement.java:386)\n\tat org.apache.commons.dbcp2.DelegatingStatement.execute(DelegatingStatement.java:291)\n\tat org.apache.commons.dbcp2.DelegatingStatement.execute(DelegatingStatement.java:291)\n\tat org.apache.zeppelin.jdbc.JDBCInterpreter.executeSql(JDBCInterpreter.java:597)\n\tat org.apache.zeppelin.jdbc.JDBCInterpreter.interpret(JDBCInterpreter.java:709)\n\tat org.apache.zeppelin.interpreter.LazyOpenInterpreter.interpret(LazyOpenInterpreter.java:97)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:498)\n\tat org.apache.zeppelin.scheduler.Job.run(Job.java:175)\n\tat org.apache.zeppelin.scheduler.ParallelScheduler$JobRunner.run(ParallelScheduler.java:162)\n\tat java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)\n\tat java.util.concurrent.FutureTask.run(FutureTask.java:266)\n\tat java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)\n\tat java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)\n\tat java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)\n\tat java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)\n\tat java.lang.Thread.run(Thread.java:748)\nCaused by: java.sql.SQLException: Internal error: fatal error in mysql_real_connect()(1045)(1045)\nQuery is: \n\nselect t.yrqtr, \nsum(l.loan_amnt) total_loan_amnt,\navg(l.loan_amnt) avg_loan_amnt,\ncount(*) count \nfrom loanstats l\njoin time_d t on l.issue_d \u003d t.issue_d\nwhere t.year \u003e\u003d 2014\ngroup by t.yrqtr \norder by t.yrqtr\n\tat org.mariadb.jdbc.internal.util.LogQueryTool.exceptionWithQuery(LogQueryTool.java:119)\n\tat org.mariadb.jdbc.internal.protocol.AbstractQueryProtocol.executeQuery(AbstractQueryProtocol.java:199)\n\tat org.mariadb.jdbc.MariaDbStatement.executeInternal(MariaDbStatement.java:328)\n\t... 16 more\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1526652106682_50873907",
+      "id": "20180518-100146_649932838",
+      "dateCreated": "May 18, 2018 10:01:46 AM",
+      "dateStarted": "May 18, 2018 10:06:48 AM",
+      "dateFinished": "May 18, 2018 10:06:48 AM",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\n## Top Ranked Delinquent Loan Amounts\n\nQuery reports on the top ranked delinquent loan amounts (i.e. the past due amount owed) for the 5 Pacific states. In the results note that high delinquent amount doesn\u0027t necesarily correspond to higher interest rates. Also CA and WA show the tying behavior of the rank function which shows all tied values but then omits the 3rd. row_number would show exactly 3 and dense_rank would show ties but also show the 3rd entry.\n\nQuery illustrates:\n- small number of columns referenced compared to table count\n- join with a states_d dimension table to allow querying by census division name.\n- use of the rank() window function to perform an ordered ranking by state\n- filtering the complete results to show top 3 per state.",
+      "user": "anonymous",
+      "dateUpdated": "May 18, 2018 10:08:54 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003eTop Ranked Delinquent Loan Amounts\u003c/h2\u003e\n\u003cp\u003eQuery reports on the top ranked delinquent loan amounts (i.e. the past due amount owed) for the 5 Pacific states. In the results note that high delinquent amount doesn\u0026rsquo;t necesarily correspond to higher interest rates. Also CA and WA show the tying behavior of the rank function which shows all tied values but then omits the 3rd. row_number would show exactly 3 and dense_rank would show ties but also show the 3rd entry.\u003c/p\u003e\n\u003cp\u003eQuery illustrates:\u003cbr/\u003e- small number of columns referenced compared to table count\u003cbr/\u003e- join with a states_d dimension table to allow querying by census division name.\u003cbr/\u003e- use of the rank() window function to perform an ordered ranking by state\u003cbr/\u003e- filtering the complete results to show top 3 per state.\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1526652408127_-1750863033",
+      "id": "20180518-100648_742067765",
+      "dateCreated": "May 18, 2018 10:06:48 AM",
+      "dateStarted": "May 18, 2018 10:08:54 AM",
+      "dateFinished": "May 18, 2018 10:08:54 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%mariadb(cs)\n\nuse demo_loans;\n\nselect * from\n( select l.addr_state,\n  l.delinq_amnt,\n  rank() over (partition by l.addr_state order by l.addr_state, l.delinq_amnt desc) rank\n  from loanstats l\n  join states_d s on l.addr_state \u003d s.abbreviation\n  where s.census_division_name \u003d \u0027Pacific\u0027\n) t\nwhere t.rank \u003c\u003d 5;",
+      "user": "anonymous",
+      "dateUpdated": "May 18, 2018 10:09:18 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "text",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/text"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : 0"
+          },
+          {
+            "type": "TEXT",
+            "data": "java.sql.SQLException: (conn\u003d37) Internal error: fatal error in mysql_real_connect()(1045)(1045)\n\tat org.mariadb.jdbc.internal.util.exceptions.ExceptionMapper.get(ExceptionMapper.java:198)\n\tat org.mariadb.jdbc.internal.util.exceptions.ExceptionMapper.getException(ExceptionMapper.java:110)\n\tat org.mariadb.jdbc.MariaDbStatement.executeExceptionEpilogue(MariaDbStatement.java:228)\n\tat org.mariadb.jdbc.MariaDbStatement.executeInternal(MariaDbStatement.java:334)\n\tat org.mariadb.jdbc.MariaDbStatement.execute(MariaDbStatement.java:386)\n\tat org.apache.commons.dbcp2.DelegatingStatement.execute(DelegatingStatement.java:291)\n\tat org.apache.commons.dbcp2.DelegatingStatement.execute(DelegatingStatement.java:291)\n\tat org.apache.zeppelin.jdbc.JDBCInterpreter.executeSql(JDBCInterpreter.java:597)\n\tat org.apache.zeppelin.jdbc.JDBCInterpreter.interpret(JDBCInterpreter.java:709)\n\tat org.apache.zeppelin.interpreter.LazyOpenInterpreter.interpret(LazyOpenInterpreter.java:97)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:498)\n\tat org.apache.zeppelin.scheduler.Job.run(Job.java:175)\n\tat org.apache.zeppelin.scheduler.ParallelScheduler$JobRunner.run(ParallelScheduler.java:162)\n\tat java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)\n\tat java.util.concurrent.FutureTask.run(FutureTask.java:266)\n\tat java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)\n\tat java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)\n\tat java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)\n\tat java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)\n\tat java.lang.Thread.run(Thread.java:748)\nCaused by: java.sql.SQLException: Internal error: fatal error in mysql_real_connect()(1045)(1045)\nQuery is: \n\nselect * from\n( select l.addr_state,\n  l.delinq_amnt,\n  rank() over (partition by l.addr_state order by l.addr_state, l.delinq_amnt desc) rank\n  from loanstats l\n  join states_d s on l.addr_state \u003d s.abbreviation\n  where s.census_division_name \u003d \u0027Pacific\u0027\n) t\nwhere t.rank \u003c\u003d 5\n\tat org.mariadb.jdbc.internal.util.LogQueryTool.exceptionWithQuery(LogQueryTool.java:119)\n\tat org.mariadb.jdbc.internal.protocol.AbstractQueryProtocol.executeQuery(AbstractQueryProtocol.java:199)\n\tat org.mariadb.jdbc.MariaDbStatement.executeInternal(MariaDbStatement.java:328)\n\t... 16 more\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1526652499069_749909584",
+      "id": "20180518-100819_1468629127",
+      "dateCreated": "May 18, 2018 10:08:19 AM",
+      "dateStarted": "May 18, 2018 10:09:18 AM",
+      "dateFinished": "May 18, 2018 10:09:19 AM",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\n## Total Loans Over Time\n\nCalculates total cumulative loan amount over time since start.\nDemonstrates use of window functions to calculate cumulative amounts.\nNote that this does not match the published graphs on  lendingclub website as a subset of loans is excluded from the public data sets.",
+      "user": "anonymous",
+      "dateUpdated": "May 18, 2018 10:10:54 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003eTotal Loans Over Time\u003c/h2\u003e\n\u003cp\u003eCalculates total cumulative loan amount over time since start.\u003cbr/\u003eDemonstrates use of window functions to calculate cumulative amounts.\u003cbr/\u003eNote that this does not match the published graphs on lendingclub website as a subset of loans is excluded from the public data sets.\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1526652558807_3774198",
+      "id": "20180518-100918_702638003",
+      "dateCreated": "May 18, 2018 10:09:18 AM",
+      "dateStarted": "May 18, 2018 10:10:54 AM",
+      "dateFinished": "May 18, 2018 10:10:54 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%mariadb(cs)\n\nuse demo_loans;\n\nselect yrqtr,\nsum(loan_amnt) over (order by yrqtr rows between unbounded preceding and current row) loan_amnt,\nsum(count) over (order by yrqtr rows between unbounded preceding and current row) count\nfrom (\n  select t.yrqtr, \n  sum(l.loan_amnt) loan_amnt,\n  count(*) count  \n  from loanstats l\n  join time_d t on l.issue_d \u003d t.issue_d\n  group by t.yrqtr \norder by t.yrqtr) t;",
+      "user": "anonymous",
+      "dateUpdated": "May 18, 2018 10:13:07 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "text",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/text"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : 0"
+          },
+          {
+            "type": "TEXT",
+            "data": "java.sql.SQLException: (conn\u003d39) Internal error: fatal error in mysql_real_connect()(1045)(1045)\n\tat org.mariadb.jdbc.internal.util.exceptions.ExceptionMapper.get(ExceptionMapper.java:198)\n\tat org.mariadb.jdbc.internal.util.exceptions.ExceptionMapper.getException(ExceptionMapper.java:110)\n\tat org.mariadb.jdbc.MariaDbStatement.executeExceptionEpilogue(MariaDbStatement.java:228)\n\tat org.mariadb.jdbc.MariaDbStatement.executeInternal(MariaDbStatement.java:334)\n\tat org.mariadb.jdbc.MariaDbStatement.execute(MariaDbStatement.java:386)\n\tat org.apache.commons.dbcp2.DelegatingStatement.execute(DelegatingStatement.java:291)\n\tat org.apache.commons.dbcp2.DelegatingStatement.execute(DelegatingStatement.java:291)\n\tat org.apache.zeppelin.jdbc.JDBCInterpreter.executeSql(JDBCInterpreter.java:597)\n\tat org.apache.zeppelin.jdbc.JDBCInterpreter.interpret(JDBCInterpreter.java:709)\n\tat org.apache.zeppelin.interpreter.LazyOpenInterpreter.interpret(LazyOpenInterpreter.java:97)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:498)\n\tat org.apache.zeppelin.scheduler.Job.run(Job.java:175)\n\tat org.apache.zeppelin.scheduler.ParallelScheduler$JobRunner.run(ParallelScheduler.java:162)\n\tat java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)\n\tat java.util.concurrent.FutureTask.run(FutureTask.java:266)\n\tat java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)\n\tat java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)\n\tat java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)\n\tat java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)\n\tat java.lang.Thread.run(Thread.java:748)\nCaused by: java.sql.SQLException: Internal error: fatal error in mysql_real_connect()(1045)(1045)\nQuery is: \n\nselect yrqtr,\nsum(loan_amnt) over (order by yrqtr rows between unbounded preceding and current row) loan_amnt,\nsum(count) over (order by yrqtr rows between unbounded preceding and current row) count\nfrom (\n  select t.yrqtr, \n  sum(l.loan_amnt) loan_amnt,\n  count(*) count  \n  from loanstats l\n  join time_d t on l.issue_d \u003d t.issue_d\n  group by t.yrqtr \norder by t.yrqtr) t\n\tat org.mariadb.jdbc.internal.util.LogQueryTool.exceptionWithQuery(LogQueryTool.java:119)\n\tat org.mariadb.jdbc.internal.protocol.AbstractQueryProtocol.executeQuery(AbstractQueryProtocol.java:199)\n\tat org.mariadb.jdbc.MariaDbStatement.executeInternal(MariaDbStatement.java:328)\n\t... 16 more\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1526652654329_-977766219",
+      "id": "20180518-101054_1473333038",
+      "dateCreated": "May 18, 2018 10:10:54 AM",
+      "dateStarted": "May 18, 2018 10:13:07 AM",
+      "dateFinished": "May 18, 2018 10:13:07 AM",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "user": "anonymous",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1526652787228_-1168834825",
+      "id": "20180518-101307_1242317541",
+      "dateCreated": "May 18, 2018 10:13:07 AM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "MariaDB/Demo/AX/Loans",
+  "id": "mariadb-demo-ax-loans",
+  "angularObjects": {
+    "2DF5XSBEK:shared_process": [],
+    "2DBP143TN:shared_process": [],
+    "2DEZ27NAC:shared_process": [],
+    "2DBQQX86C:shared_process": [],
+    "2DDRNMWSF:shared_process": [],
+    "2DE8XZDJR:shared_process": [],
+    "2DFGUW2WZ:shared_process": [],
+    "2DBQDTZMX:shared_process": [],
+    "2DD5G9W9H:shared_process": [],
+    "2DEV43AK7:shared_process": [],
+    "MARIADB:shared_process": [],
+    "2DENPS1KA:shared_process": [],
+    "2DCUP2N3Q:shared_process": [],
+    "2DEFHPYEZ:shared_process": [],
+    "2DDWMCEDN:shared_process": [],
+    "2DDR4YXMC:shared_process": [],
+    "2DF8DRAGB:shared_process": [],
+    "2DF6RSZ8V:shared_process": [],
+    "2DD1J6723:shared_process": [],
+    "2DEAEGENF:shared_process": []
+  },
+  "config": {},
+  "info": {}
+}

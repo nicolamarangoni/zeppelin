@@ -1,0 +1,322 @@
+{
+  "paragraphs": [
+    {
+      "text": "%md\n\n# Opportunities Demo",
+      "user": "anonymous",
+      "dateUpdated": "May 18, 2018 10:16:59 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch1\u003eOpportunities Demo\u003c/h1\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1526644968431_1522548914",
+      "id": "20180518-080248_829308382",
+      "dateCreated": "May 18, 2018 8:02:48 AM",
+      "dateStarted": "May 18, 2018 10:16:59 AM",
+      "dateFinished": "May 18, 2018 10:16:59 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%mariadb(cs)\n\nuse demo_opps;\n\nselect owner, \naccountName, \nCloseDate, \namount, \nsum(amount) over (order by CloseDate rows between unbounded preceding and current row) cumeWon, \nmax(amount) over (order by CloseDate rows between unbounded preceding and current row) runningMax\nfrom opportunities \nwhere stageName\u003d\u0027ClosedWon\u0027 \nand closeDate \u003e\u003d \u00272016-10-02\u0027 and closeDate \u003c\u003d \u00272016-10-09\u0027 \norder by CloseDate;",
+      "user": "anonymous",
+      "dateUpdated": "May 18, 2018 10:17:28 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "text",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/text"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : 0"
+          },
+          {
+            "type": "TABLE",
+            "data": "owner\taccountName\tCloseDate\tamount\tcumeWon\trunningMax\nBill\tBabbleopia\t2016-10-02\t437636.47\t437636.47\t437636.47\nBill\tThoughtworks\t2016-10-04\t146086.51\t583722.98\t437636.47\nOlivier\tDevpulse\t2016-10-05\t834235.93\t1417958.91\t834235.93\nChris\tLinkbridge\t2016-10-07\t539977.45\t2458738.65\t834235.93\nOlivier\tTrupe\t2016-10-07\t500802.29\t1918761.20\t834235.93\nBill\tLatz\t2016-10-08\t857254.87\t3315993.52\t857254.87\nChris\tAvamm\t2016-10-09\t699566.86\t4015560.38\t857254.87\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1526653019840_-818376194",
+      "id": "20180518-101659_830743574",
+      "dateCreated": "May 18, 2018 10:16:59 AM",
+      "dateStarted": "May 18, 2018 10:17:28 AM",
+      "dateFinished": "May 18, 2018 10:17:28 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%mariadb(cs)\n\nuse demo_opps;\n\nselect owner,  \naccountName,  \nCloseDate,  \namount,  \nsum(amount) over (partition by owner order by CloseDate rows between unbounded preceding and current row) cumeWon,  \nmax(amount) over (partition by owner order by CloseDate rows between unbounded preceding and current row) runningMax \nfrom opportunities  \nwhere stageName\u003d\u0027ClosedWon\u0027 \nand closeDate \u003e\u003d \u00272016-10-02\u0027 and closeDate \u003c\u003d \u00272016-10-09\u0027  \norder by owner, CloseDate;",
+      "user": "anonymous",
+      "dateUpdated": "May 18, 2018 10:18:17 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "text",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/text"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : 0"
+          },
+          {
+            "type": "TABLE",
+            "data": "owner\taccountName\tCloseDate\tamount\tcumeWon\trunningMax\nBill\tBabbleopia\t2016-10-02\t437636.47\t437636.47\t437636.47\nBill\tThoughtworks\t2016-10-04\t146086.51\t583722.98\t437636.47\nBill\tLatz\t2016-10-08\t857254.87\t1440977.85\t857254.87\nChris\tLinkbridge\t2016-10-07\t539977.45\t539977.45\t539977.45\nChris\tAvamm\t2016-10-09\t699566.86\t1239544.31\t699566.86\nOlivier\tDevpulse\t2016-10-05\t834235.93\t834235.93\t834235.93\nOlivier\tTrupe\t2016-10-07\t500802.29\t1335038.22\t834235.93\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1526653048520_-111177068",
+      "id": "20180518-101728_251447995",
+      "dateCreated": "May 18, 2018 10:17:28 AM",
+      "dateStarted": "May 18, 2018 10:18:17 AM",
+      "dateFinished": "May 18, 2018 10:18:17 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%mariadb(cs)\n\nuse demo_opps;\n\nselect owner, \nwonCount, \nrank() over (order by wonCount desc) rank \nfrom (\n  select owner, \n  count(*) wonCount \n  from opportunities \n  where stageName\u003d\u0027ClosedWon\u0027 \n  and closeDate \u003e\u003d \u00272016-10-01\u0027 and closeDate \u003c \u00272016-12-31\u0027  \n  group by owner\n) t\norder by rank;",
+      "user": "anonymous",
+      "dateUpdated": "May 18, 2018 10:22:07 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "text",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/text"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : 0"
+          },
+          {
+            "type": "TABLE",
+            "data": "owner\twonCount\trank\nBill\t19\t1\nChris\t15\t2\nMaria\t14\t3\nBob\t14\t3\nOlivier\t10\t5\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1526653097566_1298820382",
+      "id": "20180518-101817_231606329",
+      "dateCreated": "May 18, 2018 10:18:17 AM",
+      "dateStarted": "May 18, 2018 10:22:07 AM",
+      "dateFinished": "May 18, 2018 10:22:07 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%mariadb(cs)\n\nuse demo_opps;\n\nselect a.year, \na.quarter, \nf.accountName firstAccountName, \nf.owner firstOwner, \nf.amount firstAmount, \nl.accountName lastAccountName, \nl.owner lastOwner, \nl.amount lastAmount \nfrom (\n  select year, \n  quarter, \n  min(firstId) firstId, \n  min(lastId) lastId \n  from (\n    select year(closeDate) year, \n    quarter(closeDate) quarter, \n    first_value(id) over (partition by year(closeDate), quarter(closeDate) order by closeDate rows between unbounded preceding and current row) firstId, \n    last_value(id) over (partition by year(closeDate), quarter(closeDate) order by closeDate rows between current row and unbounded following) lastId \n    from opportunities  where stageName\u003d\u0027ClosedWon\u0027\n  ) t \n  group by year, quarter order by year,quarter\n) a \njoin opportunities f on a.firstId \u003d f.id \njoin opportunities l on a.lastId \u003d l.id \norder by year, quarter;",
+      "user": "anonymous",
+      "dateUpdated": "May 18, 2018 10:22:32 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "text",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/text"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : 0"
+          },
+          {
+            "type": "TABLE",
+            "data": "year\tquarter\tfirstAccountName\tfirstOwner\tfirstAmount\tlastAccountName\tlastOwner\tlastAmount\n2016\t3\tSkidoo\tBill\t523295.07\tSkipstorm\tBill\t151420.86\n2016\t4\tSkimia\tChris\t961513.59\tAvamm\tMaria\t112493.65\n2017\t1\tYombu\tBob\t536875.51\tSkaboo\tChris\t270273.08\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1526653327103_-440519958",
+      "id": "20180518-102207_221063881",
+      "dateCreated": "May 18, 2018 10:22:07 AM",
+      "dateStarted": "May 18, 2018 10:22:32 AM",
+      "dateFinished": "May 18, 2018 10:22:33 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%mariadb(cs)\n\nuse demo_opps;\n\nselect accountName, \ncloseDate,  \namount currentOppAmount, \nlag(amount) over (partition by accountName order by closeDate) priorAmount, lead(amount) over (partition by accountName order by closeDate) nextAmount \nfrom opportunities \norder by accountName, closeDate \nlimit 9;",
+      "user": "anonymous",
+      "dateUpdated": "May 18, 2018 10:22:54 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "text",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/text"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : 0"
+          },
+          {
+            "type": "TABLE",
+            "data": "accountName\tcloseDate\tcurrentOppAmount\tpriorAmount\tnextAmount\nAbata\t2016-09-10\t645098.45\tnull\t161086.82\nAbata\t2016-10-14\t161086.82\t645098.45\t350235.75\nAbata\t2016-12-18\t350235.75\t161086.82\t878595.89\nAbata\t2016-12-31\t878595.89\t350235.75\t922322.39\nAbata\t2017-01-21\t922322.39\t878595.89\tnull\nAbatz\t2016-10-19\t795424.15\tnull\tnull\nAgimba\t2016-07-09\t288974.84\tnull\t914461.49\nAgimba\t2016-09-07\t914461.49\t288974.84\t176645.52\nAgimba\t2016-09-20\t176645.52\t914461.49\tnull\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1526653352774_-65359132",
+      "id": "20180518-102232_378343406",
+      "dateCreated": "May 18, 2018 10:22:32 AM",
+      "dateStarted": "May 18, 2018 10:22:54 AM",
+      "dateFinished": "May 18, 2018 10:22:54 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%mariadb(cs)\n\nuse demo_opps;\n\nselect t.quartile, \nmin(t.amount) min, \nmax(t.amount) max \nfrom (\n  select amount, \n  ntile(4) over (order by amount asc) quartile \n  from opportunities \n  where closeDate \u003e\u003d \u00272016-10-01\u0027 and closeDate \u003c\u003d \u00272016-12-31\u0027\n  ) t \ngroup by quartile \norder by quartile;",
+      "user": "anonymous",
+      "dateUpdated": "May 18, 2018 10:23:20 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "text",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/text"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : 0"
+          },
+          {
+            "type": "TABLE",
+            "data": "quartile\tmin\tmax\n1\t6337.15\t287634.01\n2\t288796.14\t539977.45\n3\t540070.04\t748727.51\n4\t753670.77\t998864.47\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1526653374085_1368261242",
+      "id": "20180518-102254_423827980",
+      "dateCreated": "May 18, 2018 10:22:54 AM",
+      "dateStarted": "May 18, 2018 10:23:20 AM",
+      "dateFinished": "May 18, 2018 10:23:20 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "user": "anonymous",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1526653400710_181927142",
+      "id": "20180518-102320_944322647",
+      "dateCreated": "May 18, 2018 10:23:20 AM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "MariaDB/Demo/AX/Opps",
+  "id": "mariadb-demo-ax-opps",
+  "angularObjects": {
+    "2DF5XSBEK:shared_process": [],
+    "2DBP143TN:shared_process": [],
+    "2DEZ27NAC:shared_process": [],
+    "2DBQQX86C:shared_process": [],
+    "2DDRNMWSF:shared_process": [],
+    "2DE8XZDJR:shared_process": [],
+    "2DFGUW2WZ:shared_process": [],
+    "2DBQDTZMX:shared_process": [],
+    "2DD5G9W9H:shared_process": [],
+    "2DEV43AK7:shared_process": [],
+    "MARIADB:shared_process": [],
+    "2DENPS1KA:shared_process": [],
+    "2DCUP2N3Q:shared_process": [],
+    "2DEFHPYEZ:shared_process": [],
+    "2DDWMCEDN:shared_process": [],
+    "2DDR4YXMC:shared_process": [],
+    "2DF8DRAGB:shared_process": [],
+    "2DF6RSZ8V:shared_process": [],
+    "2DD1J6723:shared_process": [],
+    "2DEAEGENF:shared_process": []
+  },
+  "config": {},
+  "info": {}
+}

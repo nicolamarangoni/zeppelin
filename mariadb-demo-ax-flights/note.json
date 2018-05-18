@@ -1,0 +1,544 @@
+{
+  "paragraphs": [
+    {
+      "text": "%md\n\n# ColumnStore Flights Demo",
+      "user": "anonymous",
+      "dateUpdated": "May 11, 2018 4:49:16 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch1\u003eColumnStore Flights Demo\u003c/h1\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1524472500260_-2114793721",
+      "id": "20180423-103500_1732781211",
+      "dateCreated": "Apr 23, 2018 10:35:00 AM",
+      "dateStarted": "May 11, 2018 4:49:16 AM",
+      "dateFinished": "May 11, 2018 4:49:16 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\n## Airline Summary",
+      "user": "anonymous",
+      "dateUpdated": "May 11, 2018 4:49:16 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003eAirline Summary\u003c/h2\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1525426851136_-883261162",
+      "id": "20180504-054051_690436171",
+      "dateCreated": "May 4, 2018 5:40:51 AM",
+      "dateStarted": "May 11, 2018 4:49:16 AM",
+      "dateFinished": "May 11, 2018 4:49:16 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%mariadb(cs)\n\nuse demo_flights;\n\nselect \nq.airline,\nq.volume flight_count,\nround(100 * q.volume / sum(q.volume) over (order by q.airline rows between unbounded preceding and unbounded following),2) market_share_pct,\nround(100 * (q.cancelled / q.volume), 2) cancelled_pct,\nround(100 * (q.diverted / q.volume), 2) diverted_pct\nfrom (\n    select a.airline, \n    count(*) volume, \n    sum(diverted) diverted, \n    sum(cancelled) cancelled \n    from flights f \n    join airlines a on f.carrier \u003d a.iata_code \n    where f.year \u003d 2016\n    group by a.airline\n) q\norder by flight_count desc;",
+      "user": "anonymous",
+      "dateUpdated": "May 18, 2018 9:05:45 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {
+          "1": {
+            "graph": {
+              "mode": "lineChart",
+              "height": 300.0,
+              "optionOpen": true,
+              "setting": {
+                "lineChart": {},
+                "multiBarChart": {
+                  "stacked": false
+                }
+              },
+              "commonSetting": {},
+              "keys": [
+                {
+                  "name": "airline",
+                  "index": 0.0,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "values": [
+                {
+                  "name": "cancelled_pct",
+                  "index": 3.0,
+                  "aggr": "sum"
+                },
+                {
+                  "name": "diverted_pct",
+                  "index": 4.0,
+                  "aggr": "sum"
+                }
+              ]
+            },
+            "helium": {}
+          }
+        },
+        "editorSetting": {
+          "language": "text",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/text",
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : 0"
+          },
+          {
+            "type": "TABLE",
+            "data": "airline\tflight_count\tmarket_share_pct\tcancelled_pct\tdiverted_pct\nSouthwest Airlines Co.\t1299444\t23.13\t1.22\t0.24\nDelta Air Lines Inc.\t922746\t16.43\t0.45\t0.19\nAmerican Airlines Inc.\t914495\t16.28\t1.19\t0.24\nSkywest Airlines Inc.\t605933\t10.79\t1.39\t0.32\nUnited Air Lines Inc.\t545067\t9.70\t1.00\t0.26\nExpressJet\t490990\t8.74\t2.42\t0.32\nJetBlue Airways\t282473\t5.03\t1.34\t0.24\nAlaska Airlines Inc.\t177280\t3.16\t0.46\t0.25\nSpirit Air Lines\t138199\t2.46\t1.90\t0.14\nFrontier Airlines Inc.\t95121\t1.69\t1.24\t0.16\nHawaiian Airlines Inc.\t76789\t1.37\t0.15\t0.11\nVirgin America\t69121\t1.23\t0.97\t0.28\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1524472415359_-1686442313",
+      "id": "20180423-103335_540625361",
+      "dateCreated": "Apr 23, 2018 10:33:35 AM",
+      "dateStarted": "May 18, 2018 9:05:45 AM",
+      "dateFinished": "May 18, 2018 9:05:49 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\n## Delay Types By Year\n",
+      "user": "anonymous",
+      "dateUpdated": "May 11, 2018 4:49:16 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/sql",
+        "editorHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1525441092351_942807123",
+      "id": "20180504-093812_2057256554",
+      "dateCreated": "May 4, 2018 9:38:12 AM",
+      "dateStarted": "May 11, 2018 4:49:17 AM",
+      "dateFinished": "May 11, 2018 4:49:17 AM",
+      "status": "FINISHED",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%mariadb(cs)\n\nuse demo_flights;\n\nselect a.airline,\nf.year,\n\"Airline Delay\" delay_type,\ncount(*) delay\nfrom flights f\njoin airlines a on f.carrier \u003d a.iata_code\nwhere f.carrier_delay \u003e 0\ngroup by a.airline,f.year\nunion all\nselect a.airline,\nf.year,\n\"Late Aircraft Delay\" delay_type,\ncount(*) delay\nfrom flights f\njoin airlines a on f.carrier \u003d a.iata_code\nwhere f.late_aircraft_delay \u003e 0\ngroup by a.airline,f.year\nunion all\nselect a.airline,\nf.year,\n\"Air System Delay\" delay_type,\ncount(*) delay\nfrom flights f\njoin airlines a on f.carrier \u003d a.iata_code\nwhere f.nas_delay \u003e 0\ngroup by a.airline,f.year\nunion all\nselect a.airline,\nf.year,\n\"Weather Delay\" delay_type,\ncount(*) delay\nfrom flights f\njoin airlines a on f.carrier \u003d a.iata_code\nwhere f.weather_delay \u003e 0\ngroup by a.airline,f.year\norder by 1,2,3;",
+      "user": "anonymous",
+      "dateUpdated": "May 11, 2018 4:49:16 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {
+          "1": {
+            "graph": {
+              "mode": "multiBarChart",
+              "height": 300.0,
+              "optionOpen": true,
+              "setting": {
+                "multiBarChart": {}
+              },
+              "commonSetting": {},
+              "keys": [
+                {
+                  "name": "airline",
+                  "index": 0.0,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [
+                {
+                  "name": "delay_type",
+                  "index": 2.0,
+                  "aggr": "sum"
+                }
+              ],
+              "values": [
+                {
+                  "name": "delay",
+                  "index": 3.0,
+                  "aggr": "sum"
+                }
+              ]
+            },
+            "helium": {}
+          }
+        },
+        "editorSetting": {
+          "language": "text",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/text"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : 0"
+          },
+          {
+            "type": "TABLE",
+            "data": "airline\tyear\tdelay_type\tdelay\nAlaska Airlines Inc.\t2016\tAir System Delay\t14909\nAlaska Airlines Inc.\t2016\tAirline Delay\t7056\nAlaska Airlines Inc.\t2016\tLate Aircraft Delay\t6591\nAlaska Airlines Inc.\t2016\tWeather Delay\t714\nAlaska Airlines Inc.\t2017\tAir System Delay\t21742\nAlaska Airlines Inc.\t2017\tAirline Delay\t9581\nAlaska Airlines Inc.\t2017\tLate Aircraft Delay\t10015\nAlaska Airlines Inc.\t2017\tWeather Delay\t1037\nAmerican Airlines Inc.\t2016\tAir System Delay\t101534\nAmerican Airlines Inc.\t2016\tAirline Delay\t90976\nAmerican Airlines Inc.\t2016\tLate Aircraft Delay\t77721\nAmerican Airlines Inc.\t2016\tWeather Delay\t11373\nAmerican Airlines Inc.\t2017\tAir System Delay\t95481\nAmerican Airlines Inc.\t2017\tAirline Delay\t82464\nAmerican Airlines Inc.\t2017\tLate Aircraft Delay\t71347\nAmerican Airlines Inc.\t2017\tWeather Delay\t9079\nDelta Air Lines Inc.\t2016\tAir System Delay\t61184\nDelta Air Lines Inc.\t2016\tAirline Delay\t64723\nDelta Air Lines Inc.\t2016\tLate Aircraft Delay\t49307\nDelta Air Lines Inc.\t2016\tWeather Delay\t9768\nDelta Air Lines Inc.\t2017\tAir System Delay\t66085\nDelta Air Lines Inc.\t2017\tAirline Delay\t65978\nDelta Air Lines Inc.\t2017\tLate Aircraft Delay\t50962\nDelta Air Lines Inc.\t2017\tWeather Delay\t12040\nExpressJet\t2016\tAir System Delay\t44711\nExpressJet\t2016\tAirline Delay\t41418\nExpressJet\t2016\tLate Aircraft Delay\t42434\nExpressJet\t2016\tWeather Delay\t1725\nExpressJet\t2017\tAir System Delay\t35121\nExpressJet\t2017\tAirline Delay\t30815\nExpressJet\t2017\tLate Aircraft Delay\t32895\nExpressJet\t2017\tWeather Delay\t1170\nFrontier Airlines Inc.\t2016\tAir System Delay\t13511\nFrontier Airlines Inc.\t2016\tAirline Delay\t10729\nFrontier Airlines Inc.\t2016\tLate Aircraft Delay\t10263\nFrontier Airlines Inc.\t2016\tWeather Delay\t548\nFrontier Airlines Inc.\t2017\tAir System Delay\t12597\nFrontier Airlines Inc.\t2017\tAirline Delay\t10611\nFrontier Airlines Inc.\t2017\tLate Aircraft Delay\t10445\nFrontier Airlines Inc.\t2017\tWeather Delay\t429\nHawaiian Airlines Inc.\t2016\tAir System Delay\t320\nHawaiian Airlines Inc.\t2016\tAirline Delay\t5561\nHawaiian Airlines Inc.\t2016\tLate Aircraft Delay\t3579\nHawaiian Airlines Inc.\t2016\tWeather Delay\t554\nHawaiian Airlines Inc.\t2017\tAir System Delay\t501\nHawaiian Airlines Inc.\t2017\tAirline Delay\t7542\nHawaiian Airlines Inc.\t2017\tLate Aircraft Delay\t4925\nHawaiian Airlines Inc.\t2017\tWeather Delay\t808\nJetBlue Airways\t2016\tAir System Delay\t35954\nJetBlue Airways\t2016\tAirline Delay\t46242\nJetBlue Airways\t2016\tLate Aircraft Delay\t37615\nJetBlue Airways\t2016\tWeather Delay\t2226\nJetBlue Airways\t2017\tAir System Delay\t41160\nJetBlue Airways\t2017\tAirline Delay\t50226\nJetBlue Airways\t2017\tLate Aircraft Delay\t44041\nJetBlue Airways\t2017\tWeather Delay\t2189\nSkywest Airlines Inc.\t2016\tAir System Delay\t52103\nSkywest Airlines Inc.\t2016\tAirline Delay\t32919\nSkywest Airlines Inc.\t2016\tLate Aircraft Delay\t53529\nSkywest Airlines Inc.\t2016\tWeather Delay\t4486\nSkywest Airlines Inc.\t2017\tAir System Delay\t70068\nSkywest Airlines Inc.\t2017\tAirline Delay\t42956\nSkywest Airlines Inc.\t2017\tLate Aircraft Delay\t74020\nSkywest Airlines Inc.\t2017\tWeather Delay\t5723\nSouthwest Airlines Co.\t2016\tAir System Delay\t107694\nSouthwest Airlines Co.\t2016\tAirline Delay\t133218\nSouthwest Airlines Co.\t2016\tLate Aircraft Delay\t159287\nSouthwest Airlines Co.\t2016\tWeather Delay\t9502\nSouthwest Airlines Co.\t2017\tAir System Delay\t120320\nSouthwest Airlines Co.\t2017\tAirline Delay\t155620\nSouthwest Airlines Co.\t2017\tLate Aircraft Delay\t185496\nSouthwest Airlines Co.\t2017\tWeather Delay\t9259\nSpirit Air Lines\t2016\tAir System Delay\t27923\nSpirit Air Lines\t2016\tAirline Delay\t10863\nSpirit Air Lines\t2016\tLate Aircraft Delay\t8143\nSpirit Air Lines\t2016\tWeather Delay\t631\nSpirit Air Lines\t2017\tAir System Delay\t23893\nSpirit Air Lines\t2017\tAirline Delay\t10865\nSpirit Air Lines\t2017\tLate Aircraft Delay\t8670\nSpirit Air Lines\t2017\tWeather Delay\t903\nUnited Air Lines Inc.\t2016\tAir System Delay\t46801\nUnited Air Lines Inc.\t2016\tAirline Delay\t51409\nUnited Air Lines Inc.\t2016\tLate Aircraft Delay\t41928\nUnited Air Lines Inc.\t2016\tWeather Delay\t6466\nUnited Air Lines Inc.\t2017\tAir System Delay\t57680\nUnited Air Lines Inc.\t2017\tAirline Delay\t42566\nUnited Air Lines Inc.\t2017\tLate Aircraft Delay\t40996\nUnited Air Lines Inc.\t2017\tWeather Delay\t5285\nVirgin America\t2016\tAir System Delay\t7467\nVirgin America\t2016\tAirline Delay\t6069\nVirgin America\t2016\tLate Aircraft Delay\t7337\nVirgin America\t2016\tWeather Delay\t2150\nVirgin America\t2017\tAir System Delay\t12285\nVirgin America\t2017\tAirline Delay\t6007\nVirgin America\t2017\tLate Aircraft Delay\t9379\nVirgin America\t2017\tWeather Delay\t1486\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1525441133030_-2027453862",
+      "id": "20180504-093853_1139697987",
+      "dateCreated": "May 4, 2018 9:38:53 AM",
+      "dateStarted": "May 11, 2018 4:49:16 AM",
+      "dateFinished": "May 11, 2018 4:49:29 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\n## Bayarea 2016 Delays",
+      "user": "anonymous",
+      "dateUpdated": "May 11, 2018 4:49:16 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003eBayarea 2016 Delays\u003c/h2\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1525441154886_-801982642",
+      "id": "20180504-093914_1637335489",
+      "dateCreated": "May 4, 2018 9:39:14 AM",
+      "dateStarted": "May 11, 2018 4:49:17 AM",
+      "dateFinished": "May 11, 2018 4:49:17 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%mariadb(cs)\n\nuse demo_flights;\n\nselect dest, \nmonth,  \nmonthname(concat(\"2016/\", month, \"/01\")) month_name,\ncast(left(crs_arr_time,2) as int) scheduled_arrival_hr,\navg(arr_delay),\nmax(arr_delay)  \nfrom flights \nwhere dest in (\u0027SFO\u0027, \u0027OAK\u0027) \nand arr_delay \u003e 0\nand year \u003d 2016\ngroup by 1,2,3,4 \norder by 1,2,4;",
+      "user": "anonymous",
+      "dateUpdated": "May 11, 2018 4:49:17 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "text",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/text"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : 0"
+          },
+          {
+            "type": "TABLE",
+            "data": "dest\tmonth\tmonth_name\tscheduled_arrival_hr\tavg(arr_delay)\tmax(arr_delay)\nOAK\t1\tJanuary\t0\t28.6250\t87\nOAK\t1\tJanuary\t6\t13.0000\t13\nOAK\t1\tJanuary\t7\t19.4000\t231\nOAK\t1\tJanuary\t8\t14.1549\t87\nOAK\t1\tJanuary\t9\t28.7857\t361\nOAK\t1\tJanuary\t10\t13.7849\t73\nOAK\t1\tJanuary\t11\t15.6974\t138\nOAK\t1\tJanuary\t12\t16.9647\t124\nOAK\t1\tJanuary\t13\t22.5882\t197\nOAK\t1\tJanuary\t14\t23.4533\t294\nOAK\t1\tJanuary\t15\t18.8182\t119\nOAK\t1\tJanuary\t16\t22.4592\t121\nOAK\t1\tJanuary\t17\t28.1803\t323\nOAK\t1\tJanuary\t18\t30.6127\t314\nOAK\t1\tJanuary\t19\t22.0135\t156\nOAK\t1\tJanuary\t20\t23.2787\t152\nOAK\t1\tJanuary\t21\t33.1099\t192\nOAK\t1\tJanuary\t22\t26.4681\t172\nOAK\t1\tJanuary\t23\t38.5926\t249\nOAK\t2\tFebruary\t0\t1.0000\t1\nOAK\t2\tFebruary\t7\t15.4615\t36\nOAK\t2\tFebruary\t8\t21.6849\t310\nOAK\t2\tFebruary\t9\t27.1000\t411\nOAK\t2\tFebruary\t10\t13.3750\t82\nOAK\t2\tFebruary\t11\t21.2321\t178\nOAK\t2\tFebruary\t12\t22.9286\t242\nOAK\t2\tFebruary\t13\t23.5408\t319\nOAK\t2\tFebruary\t14\t13.7031\t86\nOAK\t2\tFebruary\t15\t11.5893\t63\nOAK\t2\tFebruary\t16\t18.2237\t99\nOAK\t2\tFebruary\t17\t28.2900\t163\nOAK\t2\tFebruary\t18\t21.7826\t166\nOAK\t2\tFebruary\t19\t22.9649\t204\nOAK\t2\tFebruary\t20\t22.0714\t152\nOAK\t2\tFebruary\t21\t29.1404\t253\nOAK\t2\tFebruary\t22\t31.0152\t237\nOAK\t2\tFebruary\t23\t36.8163\t196\nOAK\t3\tMarch\t0\t19.6563\t82\nOAK\t3\tMarch\t7\t6.2286\t17\nOAK\t3\tMarch\t8\t14.2111\t112\nOAK\t3\tMarch\t9\t13.6000\t123\nOAK\t3\tMarch\t10\t15.2264\t176\nOAK\t3\tMarch\t11\t16.7941\t304\nOAK\t3\tMarch\t12\t14.4031\t84\nOAK\t3\tMarch\t13\t22.8434\t175\nOAK\t3\tMarch\t14\t12.6897\t62\nOAK\t3\tMarch\t15\t18.2273\t192\nOAK\t3\tMarch\t16\t22.5833\t155\nOAK\t3\tMarch\t17\t25.9200\t221\nOAK\t3\tMarch\t18\t19.4815\t130\nOAK\t3\tMarch\t19\t26.1656\t225\nOAK\t3\tMarch\t20\t18.1441\t155\nOAK\t3\tMarch\t21\t29.9667\t218\nOAK\t3\tMarch\t22\t25.3537\t160\nOAK\t3\tMarch\t23\t30.2410\t310\nOAK\t4\tApril\t0\t23.3077\t68\nOAK\t4\tApril\t7\t9.8750\t48\nOAK\t4\tApril\t8\t14.1522\t143\nOAK\t4\tApril\t9\t11.8049\t55\nOAK\t4\tApril\t10\t15.2923\t127\nOAK\t4\tApril\t11\t20.8987\t368\nOAK\t4\tApril\t12\t26.0625\t204\nOAK\t4\tApril\t13\t24.0000\t371\nOAK\t4\tApril\t14\t23.0741\t346\nOAK\t4\tApril\t15\t21.8144\t192\nOAK\t4\tApril\t16\t24.8571\t231\nOAK\t4\tApril\t17\t25.6147\t187\nOAK\t4\tApril\t18\t20.9733\t105\nOAK\t4\tApril\t19\t31.0079\t326\nOAK\t4\tApril\t20\t28.6316\t250\nOAK\t4\tApril\t21\t32.2778\t270\nOAK\t4\tApril\t22\t27.8227\t176\nOAK\t4\tApril\t23\t24.9333\t199\nOAK\t5\tMay\t0\t18.0000\t34\nOAK\t5\tMay\t7\t8.6471\t41\nOAK\t5\tMay\t8\t26.1000\t252\nOAK\t5\tMay\t9\t18.3889\t222\nOAK\t5\tMay\t10\t9.6364\t43\nOAK\t5\tMay\t11\t12.7100\t73\nOAK\t5\tMay\t12\t19.9041\t214\nOAK\t5\tMay\t13\t15.3000\t99\nOAK\t5\tMay\t14\t22.7674\t161\nOAK\t5\tMay\t15\t19.7787\t164\nOAK\t5\tMay\t16\t19.7396\t138\nOAK\t5\tMay\t17\t27.8704\t201\nOAK\t5\tMay\t18\t23.4138\t181\nOAK\t5\tMay\t19\t26.2568\t229\nOAK\t5\tMay\t20\t26.2895\t240\nOAK\t5\tMay\t21\t25.2316\t212\nOAK\t5\tMay\t22\t22.0183\t146\nOAK\t5\tMay\t23\t28.4060\t159\nOAK\t6\tJune\t0\t46.5510\t323\nOAK\t6\tJune\t6\t12.0000\t32\nOAK\t6\tJune\t7\t4.8857\t16\nOAK\t6\tJune\t8\t8.8427\t61\nOAK\t6\tJune\t9\t24.1429\t153\nOAK\t6\tJune\t10\t18.3636\t126\nOAK\t6\tJune\t11\t19.5126\t150\nOAK\t6\tJune\t12\t18.9730\t264\nOAK\t6\tJune\t13\t23.7333\t162\nOAK\t6\tJune\t14\t30.8367\t373\nOAK\t6\tJune\t15\t20.0870\t188\nOAK\t6\tJune\t16\t24.1488\t198\nOAK\t6\tJune\t17\t28.4317\t178\nOAK\t6\tJune\t18\t25.3965\t322\nOAK\t6\tJune\t19\t33.9316\t396\nOAK\t6\tJune\t20\t32.4145\t157\nOAK\t6\tJune\t21\t37.6011\t259\nOAK\t6\tJune\t22\t38.5247\t530\nOAK\t6\tJune\t23\t39.6863\t184\nOAK\t7\tJuly\t0\t53.6140\t249\nOAK\t7\tJuly\t6\t9.0588\t45\nOAK\t7\tJuly\t7\t12.1765\t123\nOAK\t7\tJuly\t8\t21.6167\t293\nOAK\t7\tJuly\t9\t16.6275\t272\nOAK\t7\tJuly\t10\t18.9891\t248\nOAK\t7\tJuly\t11\t19.0083\t210\nOAK\t7\tJuly\t12\t17.1646\t105\nOAK\t7\tJuly\t13\t27.2150\t198\nOAK\t7\tJuly\t14\t32.1111\t275\nOAK\t7\tJuly\t15\t29.7674\t194\nOAK\t7\tJuly\t16\t27.8843\t121\nOAK\t7\tJuly\t17\t32.5000\t190\nOAK\t7\tJuly\t18\t36.0047\t349\nOAK\t7\tJuly\t19\t39.6333\t211\nOAK\t7\tJuly\t20\t42.7011\t469\nOAK\t7\tJuly\t21\t41.6424\t670\nOAK\t7\tJuly\t22\t45.3602\t291\nOAK\t7\tJuly\t23\t42.9012\t429\nOAK\t8\tAugust\t0\t38.3200\t177\nOAK\t8\tAugust\t6\t3.0000\t5\nOAK\t8\tAugust\t7\t13.6364\t59\nOAK\t8\tAugust\t8\t13.8571\t191\nOAK\t8\tAugust\t9\t13.0968\t129\nOAK\t8\tAugust\t10\t18.1935\t136\nOAK\t8\tAugust\t11\t21.4286\t194\nOAK\t8\tAugust\t12\t36.0000\t264\nOAK\t8\tAugust\t13\t27.3151\t194\nOAK\t8\tAugust\t14\t15.5217\t59\nOAK\t8\tAugust\t15\t24.2796\t334\nOAK\t8\tAugust\t16\t24.4331\t231\nOAK\t8\tAugust\t17\t24.5673\t345\nOAK\t8\tAugust\t18\t24.8200\t215\nOAK\t8\tAugust\t19\t17.6598\t150\nOAK\t8\tAugust\t20\t28.4530\t255\nOAK\t8\tAugust\t21\t30.0670\t239\nOAK\t8\tAugust\t22\t35.7250\t219\nOAK\t8\tAugust\t23\t38.6786\t207\nOAK\t9\tSeptember\t0\t35.5000\t55\nOAK\t9\tSeptember\t7\t20.5000\t68\nOAK\t9\tSeptember\t8\t9.8333\t89\nOAK\t9\tSeptember\t9\t30.3810\t173\nOAK\t9\tSeptember\t10\t10.2581\t56\nOAK\t9\tSeptember\t11\t15.9767\t121\nOAK\t9\tSeptember\t12\t20.2687\t141\nOAK\t9\tSeptember\t13\t20.5283\t193\nOAK\t9\tSeptember\t14\t25.0857\t149\nOAK\t9\tSeptember\t15\t21.2095\t145\nOAK\t9\tSeptember\t16\t23.8661\t139\nOAK\t9\tSeptember\t17\t17.9213\t113\nOAK\t9\tSeptember\t18\t21.1061\t172\nOAK\t9\tSeptember\t19\t19.5294\t138\nOAK\t9\tSeptember\t20\t26.8319\t231\nOAK\t9\tSeptember\t21\t27.2252\t191\nOAK\t9\tSeptember\t22\t25.1299\t177\nOAK\t9\tSeptember\t23\t31.8316\t314\nOAK\t10\tOctober\t7\t16.4063\t83\nOAK\t10\tOctober\t8\t20.8312\t327\nOAK\t10\tOctober\t9\t9.0323\t50\nOAK\t10\tOctober\t10\t14.3554\t157\nOAK\t10\tOctober\t11\t16.2880\t127\nOAK\t10\tOctober\t12\t15.3276\t160\nOAK\t10\tOctober\t13\t17.0367\t106\nOAK\t10\tOctober\t14\t16.1237\t75\nOAK\t10\tOctober\t15\t23.1071\t173\nOAK\t10\tOctober\t16\t22.6131\t141\nOAK\t10\tOctober\t17\t13.5868\t119\nOAK\t10\tOctober\t18\t20.5769\t245\nOAK\t10\tOctober\t19\t21.9919\t189\nOAK\t10\tOctober\t20\t23.5556\t224\nOAK\t10\tOctober\t21\t26.2126\t162\nOAK\t10\tOctober\t22\t25.1881\t155\nOAK\t10\tOctober\t23\t23.2807\t104\nOAK\t11\tNovember\t0\t29.3529\t83\nOAK\t11\tNovember\t6\t3.0000\t3\nOAK\t11\tNovember\t7\t7.3636\t25\nOAK\t11\tNovember\t8\t13.2609\t68\nOAK\t11\tNovember\t9\t22.0189\t571\nOAK\t11\tNovember\t10\t18.1224\t96\nOAK\t11\tNovember\t11\t25.4583\t196\nOAK\t11\tNovember\t12\t29.7273\t664\nOAK\t11\tNovember\t13\t17.1609\t147\nOAK\t11\tNovember\t14\t20.5326\t156\nOAK\t11\tNovember\t15\t21.2286\t265\nOAK\t11\tNovember\t16\t20.7065\t163\nOAK\t11\tNovember\t17\t17.4343\t203\nOAK\t11\tNovember\t18\t21.9055\t258\nOAK\t11\tNovember\t19\t19.8571\t322\nOAK\t11\tNovember\t20\t17.8298\t163\nOAK\t11\tNovember\t21\t22.8537\t169\nOAK\t11\tNovember\t22\t18.5833\t118\nOAK\t11\tNovember\t23\t33.5385\t246\nOAK\t12\tDecember\t0\t24.8148\t104\nOAK\t12\tDecember\t6\t14.0000\t14\nOAK\t12\tDecember\t7\t6.5714\t17\nOAK\t12\tDecember\t8\t21.3651\t161\nOAK\t12\tDecember\t9\t24.7963\t354\nOAK\t12\tDecember\t10\t18.3736\t135\nOAK\t12\tDecember\t11\t28.7563\t404\nOAK\t12\tDecember\t12\t29.5196\t295\nOAK\t12\tDecember\t13\t22.1840\t222\nOAK\t12\tDecember\t14\t33.1769\t275\nOAK\t12\tDecember\t15\t28.7000\t194\nOAK\t12\tDecember\t16\t33.6490\t355\nOAK\t12\tDecember\t17\t31.7333\t260\nOAK\t12\tDecember\t18\t39.8871\t295\nOAK\t12\tDecember\t19\t33.8000\t210\nOAK\t12\tDecember\t20\t34.8087\t255\nOAK\t12\tDecember\t21\t38.6609\t248\nOAK\t12\tDecember\t22\t36.5248\t273\nOAK\t12\tDecember\t23\t47.8563\t833\nSFO\t1\tJanuary\t0\t38.2553\t111\nSFO\t1\tJanuary\t1\t39.0000\t132\nSFO\t1\tJanuary\t2\t50.0000\t50\nSFO\t1\tJanuary\t4\t45.2000\t181\nSFO\t1\tJanuary\t5\t41.6000\t115\nSFO\t1\tJanuary\t6\t28.4324\t324\nSFO\t1\tJanuary\t7\t32.1644\t980\nSFO\t1\tJanuary\t8\t19.1570\t320\nSFO\t1\tJanuary\t9\t46.2442\t337\nSFO\t1\tJanuary\t10\t53.5091\t385\nSFO\t1\tJanuary\t11\t50.2301\t353\nSFO\t1\tJanuary\t12\t50.2952\t416\nSFO\t1\tJanuary\t13\t48.8951\t431\nSFO\t1\tJanuary\t14\t49.4463\t298\nSFO\t1\tJanuary\t15\t46.8877\t412\nSFO\t1\tJanuary\t16\t46.6507\t291\nSFO\t1\tJanuary\t17\t54.9209\t371\nSFO\t1\tJanuary\t18\t52.6780\t332\nSFO\t1\tJanuary\t19\t70.2225\t839\nSFO\t1\tJanuary\t20\t61.1648\t1019\nSFO\t1\tJanuary\t21\t56.1982\t366\nSFO\t1\tJanuary\t22\t59.9586\t881\nSFO\t1\tJanuary\t23\t52.6382\t755\nSFO\t2\tFebruary\t0\t64.0600\t1127\nSFO\t2\tFebruary\t1\t28.2273\t167\nSFO\t2\tFebruary\t4\t15.0000\t27\nSFO\t2\tFebruary\t5\t27.0000\t68\nSFO\t2\tFebruary\t6\t44.0000\t234\nSFO\t2\tFebruary\t7\t44.0769\t429\nSFO\t2\tFebruary\t8\t27.6800\t633\nSFO\t2\tFebruary\t9\t38.5151\t532\nSFO\t2\tFebruary\t10\t43.7523\t386\nSFO\t2\tFebruary\t11\t43.6979\t313\nSFO\t2\tFebruary\t12\t44.3939\t318\nSFO\t2\tFebruary\t13\t46.2217\t391\nSFO\t2\tFebruary\t14\t49.0577\t815\nSFO\t2\tFebruary\t15\t58.8161\t618\nSFO\t2\tFebruary\t16\t49.0506\t441\nSFO\t2\tFebruary\t17\t40.7419\t277\nSFO\t2\tFebruary\t18\t40.8652\t297\nSFO\t2\tFebruary\t19\t48.4887\t303\nSFO\t2\tFebruary\t20\t46.8029\t292\nSFO\t2\tFebruary\t21\t50.5930\t635\nSFO\t2\tFebruary\t22\t44.6105\t324\nSFO\t2\tFebruary\t23\t36.2672\t286\nSFO\t3\tMarch\t0\t38.3797\t222\nSFO\t3\tMarch\t1\t23.9750\t102\nSFO\t3\tMarch\t4\t45.5556\t234\nSFO\t3\tMarch\t5\t169.4286\t869\nSFO\t3\tMarch\t6\t58.1522\t506\nSFO\t3\tMarch\t7\t28.9305\t849\nSFO\t3\tMarch\t8\t26.0500\t464\nSFO\t3\tMarch\t9\t46.7050\t712\nSFO\t3\tMarch\t10\t50.2854\t531\nSFO\t3\tMarch\t11\t47.4459\t358\nSFO\t3\tMarch\t12\t55.3211\t427\nSFO\t3\tMarch\t13\t48.7159\t309\nSFO\t3\tMarch\t14\t61.9226\t428\nSFO\t3\tMarch\t15\t61.4492\t367\nSFO\t3\tMarch\t16\t59.2735\t364\nSFO\t3\tMarch\t17\t56.1707\t394\nSFO\t3\tMarch\t18\t56.2964\t351\nSFO\t3\tMarch\t19\t59.5498\t365\nSFO\t3\tMarch\t20\t59.5794\t416\nSFO\t3\tMarch\t21\t56.3464\t349\nSFO\t3\tMarch\t22\t59.6033\t880\nSFO\t3\tMarch\t23\t38.3146\t223\nSFO\t4\tApril\t0\t44.0357\t597\nSFO\t4\tApril\t1\t37.8889\t86\nSFO\t4\tApril\t4\t9.0000\t30\nSFO\t4\tApril\t5\t105.0833\t796\nSFO\t4\tApril\t6\t91.6563\t630\nSFO\t4\tApril\t7\t31.9059\t568\nSFO\t4\tApril\t8\t26.2576\t610\nSFO\t4\tApril\t9\t41.0819\t724\nSFO\t4\tApril\t10\t35.1938\t501\nSFO\t4\tApril\t11\t37.4093\t373\nSFO\t4\tApril\t12\t43.4914\t390\nSFO\t4\tApril\t13\t31.5231\t343\nSFO\t4\tApril\t14\t44.1311\t307\nSFO\t4\tApril\t15\t47.8217\t548\nSFO\t4\tApril\t16\t47.2709\t537\nSFO\t4\tApril\t17\t48.9234\t419\nSFO\t4\tApril\t18\t39.0192\t345\nSFO\t4\tApril\t19\t42.7754\t626\nSFO\t4\tApril\t20\t39.2355\t273\nSFO\t4\tApril\t21\t46.2012\t839\nSFO\t4\tApril\t22\t37.9967\t238\nSFO\t4\tApril\t23\t33.1935\t186\nSFO\t5\tMay\t0\t35.3594\t181\nSFO\t5\tMay\t1\t43.2727\t150\nSFO\t5\tMay\t4\t28.9375\t291\nSFO\t5\tMay\t5\t60.7143\t170\nSFO\t5\tMay\t6\t39.3043\t231\nSFO\t5\tMay\t7\t51.9000\t694\nSFO\t5\tMay\t8\t29.5323\t716\nSFO\t5\tMay\t9\t44.3839\t378\nSFO\t5\tMay\t10\t47.3579\t579\nSFO\t5\tMay\t11\t43.7147\t287\nSFO\t5\tMay\t12\t41.4023\t434\nSFO\t5\tMay\t13\t39.0077\t276\nSFO\t5\tMay\t14\t43.3450\t516\nSFO\t5\tMay\t15\t45.0069\t502\nSFO\t5\tMay\t16\t40.7522\t410\nSFO\t5\tMay\t17\t41.0791\t427\nSFO\t5\tMay\t18\t49.7035\t453\nSFO\t5\tMay\t19\t51.8949\t834\nSFO\t5\tMay\t20\t46.2636\t278\nSFO\t5\tMay\t21\t47.3787\t397\nSFO\t5\tMay\t22\t44.3755\t802\nSFO\t5\tMay\t23\t37.5763\t718\nSFO\t6\tJune\t0\t44.4899\t234\nSFO\t6\tJune\t1\t40.0588\t228\nSFO\t6\tJune\t4\t33.7000\t131\nSFO\t6\tJune\t5\t35.5000\t101\nSFO\t6\tJune\t6\t69.8077\t751\nSFO\t6\tJune\t7\t24.0930\t453\nSFO\t6\tJune\t8\t30.5309\t557\nSFO\t6\tJune\t9\t43.4158\t417\nSFO\t6\tJune\t10\t34.2675\t599\nSFO\t6\tJune\t11\t32.0737\t487\nSFO\t6\tJune\t12\t36.6533\t667\nSFO\t6\tJune\t13\t31.4286\t303\nSFO\t6\tJune\t14\t32.6534\t318\nSFO\t6\tJune\t15\t29.1000\t349\nSFO\t6\tJune\t16\t36.6950\t457\nSFO\t6\tJune\t17\t38.5833\t306\nSFO\t6\tJune\t18\t39.0331\t397\nSFO\t6\tJune\t19\t39.4181\t453\nSFO\t6\tJune\t20\t46.8386\t442\nSFO\t6\tJune\t21\t44.5271\t604\nSFO\t6\tJune\t22\t35.6350\t218\nSFO\t6\tJune\t23\t45.0329\t275\nSFO\t7\tJuly\t0\t57.6973\t523\nSFO\t7\tJuly\t1\t48.0323\t195\nSFO\t7\tJuly\t4\t24.8182\t157\nSFO\t7\tJuly\t5\t27.7500\t159\nSFO\t7\tJuly\t6\t32.7200\t145\nSFO\t7\tJuly\t7\t47.1698\t700\nSFO\t7\tJuly\t8\t27.8899\t485\nSFO\t7\tJuly\t9\t46.5201\t628\nSFO\t7\tJuly\t10\t33.1576\t478\nSFO\t7\tJuly\t11\t37.1733\t771\nSFO\t7\tJuly\t12\t43.3937\t597\nSFO\t7\tJuly\t13\t35.5584\t248\nSFO\t7\tJuly\t14\t40.1863\t495\nSFO\t7\tJuly\t15\t36.6464\t358\nSFO\t7\tJuly\t16\t40.6481\t295\nSFO\t7\tJuly\t17\t38.2405\t357\nSFO\t7\tJuly\t18\t48.6047\t426\nSFO\t7\tJuly\t19\t49.9005\t628\nSFO\t7\tJuly\t20\t49.9758\t358\nSFO\t7\tJuly\t21\t54.8627\t574\nSFO\t7\tJuly\t22\t53.5076\t744\nSFO\t7\tJuly\t23\t47.7329\t693\nSFO\t8\tAugust\t0\t53.5584\t284\nSFO\t8\tAugust\t1\t25.7895\t78\nSFO\t8\tAugust\t4\t5.2000\t17\nSFO\t8\tAugust\t5\t12.0000\t15\nSFO\t8\tAugust\t6\t89.1429\t671\nSFO\t8\tAugust\t7\t50.4380\t1112\nSFO\t8\tAugust\t8\t26.3800\t284\nSFO\t8\tAugust\t9\t51.8468\t964\nSFO\t8\tAugust\t10\t48.2407\t603\nSFO\t8\tAugust\t11\t46.3628\t341\nSFO\t8\tAugust\t12\t41.1872\t314\nSFO\t8\tAugust\t13\t36.0147\t357\nSFO\t8\tAugust\t14\t34.2923\t481\nSFO\t8\tAugust\t15\t33.0670\t279\nSFO\t8\tAugust\t16\t36.5018\t309\nSFO\t8\tAugust\t17\t40.1994\t366\nSFO\t8\tAugust\t18\t44.4676\t403\nSFO\t8\tAugust\t19\t43.2287\t458\nSFO\t8\tAugust\t20\t41.9011\t313\nSFO\t8\tAugust\t21\t47.0548\t802\nSFO\t8\tAugust\t22\t45.8420\t268\nSFO\t8\tAugust\t23\t47.8150\t317\nSFO\t9\tSeptember\t0\t36.8788\t280\nSFO\t9\tSeptember\t1\t61.7568\t288\nSFO\t9\tSeptember\t4\t40.6667\t232\nSFO\t9\tSeptember\t5\t17.0000\t30\nSFO\t9\tSeptember\t6\t43.0000\t237\nSFO\t9\tSeptember\t7\t43.2386\t674\nSFO\t9\tSeptember\t8\t23.2468\t395\nSFO\t9\tSeptember\t9\t44.0275\t553\nSFO\t9\tSeptember\t10\t35.5447\t484\nSFO\t9\tSeptember\t11\t33.0096\t387\nSFO\t9\tSeptember\t12\t33.0030\t279\nSFO\t9\tSeptember\t13\t34.2000\t314\nSFO\t9\tSeptember\t14\t30.6973\t307\nSFO\t9\tSeptember\t15\t41.2900\t292\nSFO\t9\tSeptember\t16\t34.6308\t978\nSFO\t9\tSeptember\t17\t26.2374\t265\nSFO\t9\tSeptember\t18\t38.9343\t284\nSFO\t9\tSeptember\t19\t32.9432\t281\nSFO\t9\tSeptember\t20\t33.1429\t259\nSFO\t9\tSeptember\t21\t38.8198\t303\nSFO\t9\tSeptember\t22\t29.6504\t231\nSFO\t9\tSeptember\t23\t28.3214\t250\nSFO\t10\tOctober\t0\t36.4103\t210\nSFO\t10\tOctober\t1\t33.2143\t125\nSFO\t10\tOctober\t4\t45.5833\t308\nSFO\t10\tOctober\t5\t49.7692\t184\nSFO\t10\tOctober\t6\t57.6364\t291\nSFO\t10\tOctober\t7\t27.5143\t1120\nSFO\t10\tOctober\t8\t22.6364\t483\nSFO\t10\tOctober\t9\t45.2341\t466\nSFO\t10\tOctober\t10\t38.0450\t386\nSFO\t10\tOctober\t11\t48.1657\t502\nSFO\t10\tOctober\t12\t49.7911\t339\nSFO\t10\tOctober\t13\t54.3082\t332\nSFO\t10\tOctober\t14\t53.3098\t615\nSFO\t10\tOctober\t15\t55.8013\t996\nSFO\t10\tOctober\t16\t48.3041\t425\nSFO\t10\tOctober\t17\t50.9276\t407\nSFO\t10\tOctober\t18\t50.6412\t548\nSFO\t10\tOctober\t19\t52.9850\t361\nSFO\t10\tOctober\t20\t59.1429\t351\nSFO\t10\tOctober\t21\t59.8413\t1052\nSFO\t10\tOctober\t22\t45.5711\t226\nSFO\t10\tOctober\t23\t39.7296\t255\nSFO\t11\tNovember\t0\t15.0714\t112\nSFO\t11\tNovember\t1\t18.8000\t114\nSFO\t11\tNovember\t2\t10.3333\t24\nSFO\t11\tNovember\t3\t1.0000\t1\nSFO\t11\tNovember\t4\t62.2500\t615\nSFO\t11\tNovember\t5\t226.0000\t226\nSFO\t11\tNovember\t6\t27.0000\t147\nSFO\t11\tNovember\t7\t26.2296\t337\nSFO\t11\tNovember\t8\t19.6500\t364\nSFO\t11\tNovember\t9\t39.0102\t408\nSFO\t11\tNovember\t10\t37.1907\t291\nSFO\t11\tNovember\t11\t38.5141\t263\nSFO\t11\tNovember\t12\t42.5518\t408\nSFO\t11\tNovember\t13\t39.7500\t235\nSFO\t11\tNovember\t14\t46.6355\t302\nSFO\t11\tNovember\t15\t36.5830\t207\nSFO\t11\tNovember\t16\t36.3293\t366\nSFO\t11\tNovember\t17\t36.5044\t268\nSFO\t11\tNovember\t18\t32.1653\t258\nSFO\t11\tNovember\t19\t35.0676\t257\nSFO\t11\tNovember\t20\t31.9410\t324\nSFO\t11\tNovember\t21\t30.8346\t307\nSFO\t11\tNovember\t22\t30.6349\t342\nSFO\t11\tNovember\t23\t30.4662\t212\nSFO\t12\tDecember\t0\t53.4286\t665\nSFO\t12\tDecember\t1\t40.5625\t266\nSFO\t12\tDecember\t4\t106.4500\t677\nSFO\t12\tDecember\t5\t16.2000\t23\nSFO\t12\tDecember\t6\t32.6857\t195\nSFO\t12\tDecember\t7\t36.3392\t546\nSFO\t12\tDecember\t8\t44.8980\t712\nSFO\t12\tDecember\t9\t39.1746\t871\nSFO\t12\tDecember\t10\t38.7235\t300\nSFO\t12\tDecember\t11\t42.0406\t463\nSFO\t12\tDecember\t12\t47.4109\t610\nSFO\t12\tDecember\t13\t46.8557\t406\nSFO\t12\tDecember\t14\t49.0850\t474\nSFO\t12\tDecember\t15\t51.0863\t452\nSFO\t12\tDecember\t16\t50.6904\t402\nSFO\t12\tDecember\t17\t53.4086\t380\nSFO\t12\tDecember\t18\t46.8038\t973\nSFO\t12\tDecember\t19\t57.5012\t1045\nSFO\t12\tDecember\t20\t49.6901\t544\nSFO\t12\tDecember\t21\t53.4591\t851\nSFO\t12\tDecember\t22\t51.7917\t736\nSFO\t12\tDecember\t23\t42.0062\t293\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1525441285974_-1905626378",
+      "id": "20180504-094125_1425484985",
+      "dateCreated": "May 4, 2018 9:41:25 AM",
+      "dateStarted": "May 11, 2018 4:49:17 AM",
+      "dateFinished": "May 11, 2018 4:49:22 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\n## Bayarea November 2016 Delays",
+      "user": "anonymous",
+      "dateUpdated": "May 11, 2018 4:49:17 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003eBayarea November 2016 Delays\u003c/h2\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1525441323310_-1788785306",
+      "id": "20180504-094203_540985816",
+      "dateCreated": "May 4, 2018 9:42:03 AM",
+      "dateStarted": "May 11, 2018 4:49:17 AM",
+      "dateFinished": "May 11, 2018 4:49:17 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%mariadb(cs)\n\nuse demo_flights;\n\nselect dest, \nmonth,  \nmonthname(concat(\"2016/\", month, \"/01\")) month_name,\nday,\navg(arr_delay),\nmax(arr_delay)  \nfrom flights \nwhere dest in (\u0027SFO\u0027, \u0027OAK\u0027) \nand arr_delay \u003e 0\nand month \u003d 11\nand year \u003d 2016\ngroup by 1,2,3,4 \norder by 1,2,4;",
+      "user": "anonymous",
+      "dateUpdated": "May 11, 2018 4:49:17 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "text",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/text"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : 0"
+          },
+          {
+            "type": "TABLE",
+            "data": "dest\tmonth\tmonth_name\tday\tavg(arr_delay)\tmax(arr_delay)\nOAK\t11\tNovember\t1\t11.6471\t61\nOAK\t11\tNovember\t2\t15.3125\t78\nOAK\t11\tNovember\t3\t22.5484\t258\nOAK\t11\tNovember\t4\t14.2286\t52\nOAK\t11\tNovember\t5\t16.3200\t44\nOAK\t11\tNovember\t6\t26.9535\t113\nOAK\t11\tNovember\t7\t16.8571\t68\nOAK\t11\tNovember\t8\t11.3125\t38\nOAK\t11\tNovember\t9\t40.2963\t664\nOAK\t11\tNovember\t10\t30.3529\t220\nOAK\t11\tNovember\t11\t23.4286\t265\nOAK\t11\tNovember\t12\t13.1818\t48\nOAK\t11\tNovember\t13\t18.8000\t105\nOAK\t11\tNovember\t14\t24.1731\t117\nOAK\t11\tNovember\t15\t20.8140\t175\nOAK\t11\tNovember\t16\t15.5500\t118\nOAK\t11\tNovember\t17\t24.6429\t571\nOAK\t11\tNovember\t18\t19.3175\t85\nOAK\t11\tNovember\t19\t22.1887\t203\nOAK\t11\tNovember\t20\t23.7391\t169\nOAK\t11\tNovember\t21\t18.2791\t89\nOAK\t11\tNovember\t22\t18.2500\t144\nOAK\t11\tNovember\t23\t17.2308\t139\nOAK\t11\tNovember\t24\t9.6000\t44\nOAK\t11\tNovember\t25\t16.0385\t80\nOAK\t11\tNovember\t26\t22.1045\t246\nOAK\t11\tNovember\t27\t26.1042\t143\nOAK\t11\tNovember\t28\t29.7042\t322\nOAK\t11\tNovember\t29\t20.4865\t163\nOAK\t11\tNovember\t30\t22.5714\t112\nSFO\t11\tNovember\t1\t19.7582\t237\nSFO\t11\tNovember\t2\t25.5133\t254\nSFO\t11\tNovember\t3\t28.3564\t196\nSFO\t11\tNovember\t4\t31.5000\t189\nSFO\t11\tNovember\t5\t33.7143\t408\nSFO\t11\tNovember\t6\t50.9634\t366\nSFO\t11\tNovember\t7\t33.0946\t307\nSFO\t11\tNovember\t8\t23.8163\t199\nSFO\t11\tNovember\t9\t25.9762\t337\nSFO\t11\tNovember\t10\t35.5833\t291\nSFO\t11\tNovember\t11\t27.9231\t212\nSFO\t11\tNovember\t12\t32.1515\t126\nSFO\t11\tNovember\t13\t32.0746\t364\nSFO\t11\tNovember\t14\t69.2748\t278\nSFO\t11\tNovember\t15\t35.7378\t172\nSFO\t11\tNovember\t16\t15.8125\t141\nSFO\t11\tNovember\t17\t30.2112\t342\nSFO\t11\tNovember\t18\t25.8750\t210\nSFO\t11\tNovember\t19\t72.6272\t357\nSFO\t11\tNovember\t20\t38.8645\t188\nSFO\t11\tNovember\t21\t30.6667\t303\nSFO\t11\tNovember\t22\t22.7911\t615\nSFO\t11\tNovember\t23\t20.4905\t222\nSFO\t11\tNovember\t24\t16.6071\t189\nSFO\t11\tNovember\t25\t24.4510\t291\nSFO\t11\tNovember\t26\t45.3959\t324\nSFO\t11\tNovember\t27\t23.7932\t257\nSFO\t11\tNovember\t28\t32.2241\t408\nSFO\t11\tNovember\t29\t19.5974\t111\nSFO\t11\tNovember\t30\t24.7833\t226\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1525441355070_-678369332",
+      "id": "20180504-094235_1022648771",
+      "dateCreated": "May 4, 2018 9:42:35 AM",
+      "dateStarted": "May 11, 2018 4:49:17 AM",
+      "dateFinished": "May 11, 2018 4:49:25 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\n## CA 2016 Delays",
+      "user": "anonymous",
+      "dateUpdated": "May 11, 2018 4:49:17 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003eCA 2016 Delays\u003c/h2\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1525441422471_1944738111",
+      "id": "20180504-094342_572912644",
+      "dateCreated": "May 4, 2018 9:43:42 AM",
+      "dateStarted": "May 11, 2018 4:49:18 AM",
+      "dateFinished": "May 11, 2018 4:49:18 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%mariadb(cs)\n\nuse demo_flights;\n\nselect a.airline, \nad.airport,\ncount(*) volume,\navg(arr_delay) avg_arrival_delay\nfrom flights f \njoin airlines a on f.carrier \u003d a.iata_code \njoin airports ad on f.dest\u003d ad.iata_code\nwhere ad.state \u003d \u0027CA\u0027\nand f.year \u003d 2016\ngroup by 1,2\norder by 1,2;\n",
+      "user": "anonymous",
+      "dateUpdated": "May 11, 2018 4:49:17 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "text",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/text"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : 0"
+          },
+          {
+            "type": "TABLE",
+            "data": "airline\tairport\tvolume\tavg_arrival_delay\nAlaska Airlines Inc.\tBob Hope Airport (Hollywood Burbank Airport)\t1170\t-1.5998\nAlaska Airlines Inc.\tJohn Wayne Airport (Orange County Airport)\t3528\t-1.5780\nAlaska Airlines Inc.\tLos Angeles International Airport\t8790\t0.4592\nAlaska Airlines Inc.\tNorman Y. Mineta San José International Airport\t4559\t-0.8553\nAlaska Airlines Inc.\tOakland International Airport\t2100\t-3.3784\nAlaska Airlines Inc.\tOntario International Airport\t819\t-2.5092\nAlaska Airlines Inc.\tPalm Springs International Airport\t1706\t4.2565\nAlaska Airlines Inc.\tSacramento International Airport\t2231\t-0.2493\nAlaska Airlines Inc.\tSan Diego International Airport (Lindbergh Field)\t5700\t-3.0005\nAlaska Airlines Inc.\tSan Francisco International Airport\t5590\t6.9809\nAmerican Airlines Inc.\tFresno Yosemite International Airport\t750\t7.1221\nAmerican Airlines Inc.\tJohn Wayne Airport (Orange County Airport)\t6133\t2.3146\nAmerican Airlines Inc.\tLos Angeles International Airport\t41329\t6.0179\nAmerican Airlines Inc.\tNorman Y. Mineta San José International Airport\t4229\t5.0964\nAmerican Airlines Inc.\tOakland International Airport\t823\t3.8297\nAmerican Airlines Inc.\tOntario International Airport\t2631\t5.8862\nAmerican Airlines Inc.\tPalm Springs International Airport\t1152\t4.5481\nAmerican Airlines Inc.\tSacramento International Airport\t3901\t7.1303\nAmerican Airlines Inc.\tSan Diego International Airport (Lindbergh Field)\t9242\t3.9570\nAmerican Airlines Inc.\tSan Francisco International Airport\t16212\t10.8905\nDelta Air Lines Inc.\tJohn Wayne Airport (Orange County Airport)\t2838\t-4.2797\nDelta Air Lines Inc.\tLong Beach Airport (Daugherty Field)\t68\t-9.3529\nDelta Air Lines Inc.\tLos Angeles International Airport\t35659\t3.2694\nDelta Air Lines Inc.\tNorman Y. Mineta San José International Airport\t3318\t1.0282\nDelta Air Lines Inc.\tOakland International Airport\t1832\t2.8874\nDelta Air Lines Inc.\tOntario International Airport\t289\t-2.0657\nDelta Air Lines Inc.\tPalm Springs International Airport\t151\t-9.1258\nDelta Air Lines Inc.\tSacramento International Airport\t2461\t0.2765\nDelta Air Lines Inc.\tSan Diego International Airport (Lindbergh Field)\t7085\t-4.9306\nDelta Air Lines Inc.\tSan Francisco International Airport\t13358\t6.4736\nFrontier Airlines Inc.\tJohn Wayne Airport (Orange County Airport)\t712\t3.8271\nFrontier Airlines Inc.\tLos Angeles International Airport\t1731\t11.1068\nFrontier Airlines Inc.\tSan Diego International Airport (Lindbergh Field)\t959\t6.7401\nFrontier Airlines Inc.\tSan Francisco International Airport\t2492\t17.5546\nHawaiian Airlines Inc.\tLos Angeles International Airport\t1770\t1.2062\nHawaiian Airlines Inc.\tNorman Y. Mineta San José International Airport\t732\t-0.9642\nHawaiian Airlines Inc.\tOakland International Airport\t860\t-5.0724\nHawaiian Airlines Inc.\tSacramento International Airport\t366\t5.9123\nHawaiian Airlines Inc.\tSan Diego International Airport (Lindbergh Field)\t366\t-1.4904\nHawaiian Airlines Inc.\tSan Francisco International Airport\t732\t0.5624\nJetBlue Airways\tBob Hope Airport (Hollywood Burbank Airport)\t365\t3.1208\nJetBlue Airways\tLong Beach Airport (Daugherty Field)\t8680\t5.6161\nJetBlue Airways\tLos Angeles International Airport\t5139\t1.8445\nJetBlue Airways\tNorman Y. Mineta San José International Airport\t584\t4.3849\nJetBlue Airways\tOakland International Airport\t1632\t6.4227\nJetBlue Airways\tPalm Springs International Airport\t121\t5.3248\nJetBlue Airways\tSacramento International Airport\t1113\t6.5789\nJetBlue Airways\tSan Diego International Airport (Lindbergh Field)\t1561\t-4.4662\nJetBlue Airways\tSan Francisco International Airport\t5860\t9.1002\nSkywest Airlines Inc.\tArcata Airport\t1418\t7.3509\nSkywest Airlines Inc.\tBob Hope Airport (Hollywood Burbank Airport)\t4761\t4.1200\nSkywest Airlines Inc.\tFresno Yosemite International Airport\t7566\t4.6806\nSkywest Airlines Inc.\tJohn Wayne Airport (Orange County Airport)\t3391\t2.6316\nSkywest Airlines Inc.\tLong Beach Airport (Daugherty Field)\t1298\t-3.2713\nSkywest Airlines Inc.\tLos Angeles International Airport\t24991\t7.6157\nSkywest Airlines Inc.\tMammoth Yosemite Airport\t117\t5.8842\nSkywest Airlines Inc.\tMeadows Field\t2604\t5.1094\nSkywest Airlines Inc.\tMonterey Regional Airport (Monterey Peninsula Airport)\t2547\t4.5542\nSkywest Airlines Inc.\tNorman Y. Mineta San José International Airport\t3331\t0.2507\nSkywest Airlines Inc.\tOakland International Airport\t522\t3.7461\nSkywest Airlines Inc.\tOntario International Airport\t4851\t5.4182\nSkywest Airlines Inc.\tPalm Springs International Airport\t5931\t2.7704\nSkywest Airlines Inc.\tRedding Municipal Airport\t991\t3.5659\nSkywest Airlines Inc.\tSacramento International Airport\t5504\t3.8270\nSkywest Airlines Inc.\tSan Diego International Airport (Lindbergh Field)\t6007\t4.7424\nSkywest Airlines Inc.\tSan Francisco International Airport\t37621\t14.5272\nSkywest Airlines Inc.\tSan Luis Obispo County Regional Airport (McChesney Field)\t3194\t3.1630\nSkywest Airlines Inc.\tSanta Barbara Municipal Airport (Santa Barbara Airport)\t5984\t4.0934\nSkywest Airlines Inc.\tSanta Maria Public Airport (Capt G. Allan Hancock Field)\t557\t8.8343\nSouthwest Airlines Co.\tBob Hope Airport (Hollywood Burbank Airport)\t16232\t4.3351\nSouthwest Airlines Co.\tJohn Wayne Airport (Orange County Airport)\t20364\t2.2687\nSouthwest Airlines Co.\tLong Beach Airport (Daugherty Field)\t1120\t3.2317\nSouthwest Airlines Co.\tLos Angeles International Airport\t42117\t11.6791\nSouthwest Airlines Co.\tNorman Y. Mineta San José International Airport\t23997\t5.4278\nSouthwest Airlines Co.\tOakland International Airport\t38622\t5.2500\nSouthwest Airlines Co.\tOntario International Airport\t10848\t5.7514\nSouthwest Airlines Co.\tSacramento International Airport\t23185\t6.2370\nSouthwest Airlines Co.\tSan Diego International Airport (Lindbergh Field)\t34480\t4.1494\nSouthwest Airlines Co.\tSan Francisco International Airport\t16374\t13.8173\nSpirit Air Lines\tLos Angeles International Airport\t8838\t9.9147\nSpirit Air Lines\tOakland International Airport\t2417\t8.8923\nSpirit Air Lines\tSan Diego International Airport (Lindbergh Field)\t2089\t9.1794\nUnited Air Lines Inc.\tJohn Wayne Airport (Orange County Airport)\t5608\t-3.8880\nUnited Air Lines Inc.\tLos Angeles International Airport\t28516\t6.8543\nUnited Air Lines Inc.\tNorman Y. Mineta San José International Airport\t1325\t-4.7860\nUnited Air Lines Inc.\tOntario International Airport\t204\t-6.6552\nUnited Air Lines Inc.\tPalm Springs International Airport\t667\t-2.7058\nUnited Air Lines Inc.\tSacramento International Airport\t2502\t1.6844\nUnited Air Lines Inc.\tSan Diego International Airport (Lindbergh Field)\t8676\t-0.9187\nUnited Air Lines Inc.\tSan Francisco International Airport\t53640\t5.3312\nVirgin America\tLos Angeles International Airport\t14092\t5.3786\nVirgin America\tPalm Springs International Airport\t336\t14.7234\nVirgin America\tSan Diego International Airport (Lindbergh Field)\t2024\t11.6858\nVirgin America\tSan Francisco International Airport\t20519\t10.8418\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1525441469047_441386241",
+      "id": "20180504-094429_2094307734",
+      "dateCreated": "May 4, 2018 9:44:29 AM",
+      "dateStarted": "May 11, 2018 4:49:18 AM",
+      "dateFinished": "May 11, 2018 4:49:24 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "user": "anonymous",
+      "dateUpdated": "May 11, 2018 4:49:17 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1525441523913_-1794496887",
+      "id": "20180504-094523_154036298",
+      "dateCreated": "May 4, 2018 9:45:23 AM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "MariaDB/Demo/AX/Flights",
+  "id": "mariadb-demo-ax-flights",
+  "angularObjects": {
+    "2DF5XSBEK:shared_process": [],
+    "2DBP143TN:shared_process": [],
+    "2DEZ27NAC:shared_process": [],
+    "2DBQQX86C:shared_process": [],
+    "2DDRNMWSF:shared_process": [],
+    "2DE8XZDJR:shared_process": [],
+    "2DFGUW2WZ:shared_process": [],
+    "2DBQDTZMX:shared_process": [],
+    "2DD5G9W9H:shared_process": [],
+    "2DEV43AK7:shared_process": [],
+    "MARIADB:shared_process": [],
+    "2DENPS1KA:shared_process": [],
+    "2DCUP2N3Q:shared_process": [],
+    "2DEFHPYEZ:shared_process": [],
+    "2DDWMCEDN:shared_process": [],
+    "2DDR4YXMC:shared_process": [],
+    "2DF8DRAGB:shared_process": [],
+    "2DF6RSZ8V:shared_process": [],
+    "2DD1J6723:shared_process": [],
+    "2DEAEGENF:shared_process": []
+  },
+  "config": {},
+  "info": {}
+}
