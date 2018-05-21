@@ -79,14 +79,14 @@
     {
       "text": "%mariadb(cs)\n\nuse demo_flights;\n\nselect \nq.airline,\nq.volume flight_count,\nround(100 * q.volume / sum(q.volume) over (order by q.airline rows between unbounded preceding and unbounded following),2) market_share_pct,\nround(100 * (q.cancelled / q.volume), 2) cancelled_pct,\nround(100 * (q.diverted / q.volume), 2) diverted_pct\nfrom (\n    select a.airline, \n    count(*) volume, \n    sum(diverted) diverted, \n    sum(cancelled) cancelled \n    from flights f \n    join airlines a on f.carrier \u003d a.iata_code \n    where f.year \u003d 2016\n    group by a.airline\n) q\norder by flight_count desc;",
       "user": "anonymous",
-      "dateUpdated": "May 18, 2018 9:05:45 AM",
+      "dateUpdated": "May 21, 2018 1:09:08 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
         "results": {
           "1": {
             "graph": {
-              "mode": "lineChart",
+              "mode": "multiBarChart",
               "height": 300.0,
               "optionOpen": true,
               "setting": {
