@@ -1,0 +1,84 @@
+{
+  "paragraphs": [
+    {
+      "text": "%md\n\n# Compare ColumnStore vs InnoDB Performance",
+      "user": "anonymous",
+      "dateUpdated": "May 18, 2018 10:29:16 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch1\u003eCompare ColumnStore vs InnoDB Performance\u003c/h1\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1526653720169_614645416",
+      "id": "20180518-102840_1190717217",
+      "dateCreated": "May 18, 2018 10:28:40 AM",
+      "dateStarted": "May 18, 2018 10:29:17 AM",
+      "dateFinished": "May 18, 2018 10:29:17 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n",
+      "user": "anonymous",
+      "dateUpdated": "May 18, 2018 10:29:16 AM",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1526653756980_491971814",
+      "id": "20180518-102916_1776912540",
+      "dateCreated": "May 18, 2018 10:29:16 AM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "MariaDB/Demo/AX/ColumnStore vs InnoDB",
+  "id": "mariadb-demo-ax-cs-vs-innodb",
+  "angularObjects": {
+    "2DF5XSBEK:shared_process": [],
+    "2DBP143TN:shared_process": [],
+    "2DEZ27NAC:shared_process": [],
+    "2DBQQX86C:shared_process": [],
+    "2DDRNMWSF:shared_process": [],
+    "2DE8XZDJR:shared_process": [],
+    "2DFGUW2WZ:shared_process": [],
+    "2DBQDTZMX:shared_process": [],
+    "2DD5G9W9H:shared_process": [],
+    "2DEV43AK7:shared_process": [],
+    "MARIADB:shared_process": [],
+    "2DENPS1KA:shared_process": [],
+    "2DCUP2N3Q:shared_process": [],
+    "2DEFHPYEZ:shared_process": [],
+    "2DDWMCEDN:shared_process": [],
+    "2DDR4YXMC:shared_process": [],
+    "2DF8DRAGB:shared_process": [],
+    "2DF6RSZ8V:shared_process": [],
+    "2DD1J6723:shared_process": [],
+    "2DEAEGENF:shared_process": []
+  },
+  "config": {},
+  "info": {}
+}

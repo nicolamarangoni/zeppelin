@@ -1,0 +1,382 @@
+{
+  "paragraphs": [
+    {
+      "text": "%md\n\n# Change Data Capture with MaxScale\nDemo showing Change Data Capture from TX using MaxScale and Ingestion to AX using the specific connector",
+      "user": "anonymous",
+      "dateUpdated": "May 18, 2018 10:33:04 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch1\u003eChange Data Capture with MaxScale\u003c/h1\u003e\n\u003cp\u003eDemo showing Change Data Capture from TX using MaxScale and Ingestion to AX using the specific connector\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1526653888418_-329700240",
+      "id": "20180518-103128_961127457",
+      "dateCreated": "May 18, 2018 10:31:28 AM",
+      "dateStarted": "May 18, 2018 10:33:04 AM",
+      "dateFinished": "May 18, 2018 10:33:04 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n## Prepare objects in TX",
+      "user": "anonymous",
+      "dateUpdated": "May 18, 2018 10:44:39 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/sql",
+        "editorHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003ePrepare objects in TX\u003c/h2\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1526653984676_-498465445",
+      "id": "20180518-103304_405563549",
+      "dateCreated": "May 18, 2018 10:33:04 AM",
+      "dateStarted": "May 18, 2018 10:44:36 AM",
+      "dateFinished": "May 18, 2018 10:44:36 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%mariadb\n\nuse demo;\n\ndrop table if exists demo.tbl_demo;\n\ncreate table if not exists demo.tbl_demo (col0 bigint);\n",
+      "user": "anonymous",
+      "dateUpdated": "May 18, 2018 10:36:00 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : 0"
+          },
+          {
+            "type": "TABLE",
+            "data": "col0\n0\n1\n2\n3\n4\n5\n6\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1526654021973_669308764",
+      "id": "20180518-103341_496782684",
+      "dateCreated": "May 18, 2018 10:33:41 AM",
+      "dateStarted": "May 18, 2018 10:34:05 AM",
+      "dateFinished": "May 18, 2018 10:34:05 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\n## Prepare objects in AX",
+      "user": "anonymous",
+      "dateUpdated": "May 18, 2018 10:39:42 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": false,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003ePrepare objects in AX\u003c/h2\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1526654182315_1448069542",
+      "id": "20180518-103622_1256260016",
+      "dateCreated": "May 18, 2018 10:36:22 AM",
+      "dateStarted": "May 18, 2018 10:39:02 AM",
+      "dateFinished": "May 18, 2018 10:39:02 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%mariadb(cs)\n\nuse demo;\n\ndrop table if exists demo.tbl_demo;\n\nCREATE TABLE if not exists tbl_demo (\n  col0 bigint(20) DEFAULT NULL,\n  domain int(11) DEFAULT NULL,\n  event_number int(11) DEFAULT NULL,\n  event_type varchar(50) DEFAULT NULL,\n  sequence int(11) DEFAULT NULL,\n  server_id int(11) DEFAULT NULL,\n  timestamp int(11) DEFAULT NULL\n) ENGINE\u003dColumnstore;",
+      "user": "anonymous",
+      "dateUpdated": "May 18, 2018 10:39:01 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "text",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/text"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1526654045908_1705250373",
+      "id": "20180518-103405_177204745",
+      "dateCreated": "May 18, 2018 10:34:05 AM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\n## Insert Rows in TX",
+      "user": "anonymous",
+      "dateUpdated": "May 18, 2018 10:44:32 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003eInsert Rows in TX\u003c/h2\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1526654350919_1206457099",
+      "id": "20180518-103910_2123724648",
+      "dateCreated": "May 18, 2018 10:39:10 AM",
+      "dateStarted": "May 18, 2018 10:44:32 AM",
+      "dateFinished": "May 18, 2018 10:44:32 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%mariadb\n\nuse demo;\n\n-- delete from tbl_demo where col0 \u003d 7;\n\ninsert into demo.tbl_demo values (7);",
+      "user": "anonymous",
+      "dateUpdated": "May 18, 2018 10:48:37 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : 0"
+          },
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : 0"
+          },
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : 1"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1526654392003_1567998472",
+      "id": "20180518-103952_1704230087",
+      "dateCreated": "May 18, 2018 10:39:52 AM",
+      "dateStarted": "May 18, 2018 10:48:37 AM",
+      "dateFinished": "May 18, 2018 10:48:37 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\n## See Changes in AX",
+      "user": "anonymous",
+      "dateUpdated": "May 18, 2018 10:44:29 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003eSee Changes in AX\u003c/h2\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1526654528236_1190006486",
+      "id": "20180518-104208_1895855508",
+      "dateCreated": "May 18, 2018 10:42:08 AM",
+      "dateStarted": "May 18, 2018 10:44:29 AM",
+      "dateFinished": "May 18, 2018 10:44:29 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%mariadb(cs)\n\nuse demo;\n\nselect * from demo.tbl_demo order by timestamp desc;",
+      "user": "anonymous",
+      "dateUpdated": "May 18, 2018 10:48:45 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "text",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/text"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : 0"
+          },
+          {
+            "type": "TABLE",
+            "data": "col0\tdomain\tevent_number\tevent_type\tsequence\tserver_id\ttimestamp\n7\t0\t1\tinsert\t135\t1\t1526654917\n7\t0\t1\tdelete\t134\t1\t1526654827\n7\t0\t1\tinsert\t133\t1\t1526654767\n6\t0\t1\tinsert\t131\t1\t1526643714\n5\t0\t1\tinsert\t130\t1\t1526638517\n4\t0\t1\tinsert\t129\t1\t1526638466\n3\t0\t1\tinsert\t128\t1\t1526633105\n2\t0\t1\tinsert\t127\t1\t1526633103\n1\t0\t1\tinsert\t126\t1\t1526633101\n0\t0\t1\tinsert\t125\t1\t1526632867\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1526654455090_490224858",
+      "id": "20180518-104055_970634155",
+      "dateCreated": "May 18, 2018 10:40:55 AM",
+      "dateStarted": "May 18, 2018 10:48:45 AM",
+      "dateFinished": "May 18, 2018 10:48:45 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "user": "anonymous",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1526654778402_-1811867374",
+      "id": "20180518-104618_71406031",
+      "dateCreated": "May 18, 2018 10:46:18 AM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "MariaDB/Demo/MX/CDC",
+  "id": "mariadb-demo-mx-cdc",
+  "angularObjects": {
+    "2DF5XSBEK:shared_process": [],
+    "2DBP143TN:shared_process": [],
+    "2DEZ27NAC:shared_process": [],
+    "2DBQQX86C:shared_process": [],
+    "2DDRNMWSF:shared_process": [],
+    "2DE8XZDJR:shared_process": [],
+    "2DFGUW2WZ:shared_process": [],
+    "2DBQDTZMX:shared_process": [],
+    "2DD5G9W9H:shared_process": [],
+    "2DEV43AK7:shared_process": [],
+    "MARIADB:shared_process": [],
+    "2DENPS1KA:shared_process": [],
+    "2DCUP2N3Q:shared_process": [],
+    "2DEFHPYEZ:shared_process": [],
+    "2DDWMCEDN:shared_process": [],
+    "2DDR4YXMC:shared_process": [],
+    "2DF8DRAGB:shared_process": [],
+    "2DF6RSZ8V:shared_process": [],
+    "2DD1J6723:shared_process": [],
+    "2DEAEGENF:shared_process": []
+  },
+  "config": {},
+  "info": {}
+}
